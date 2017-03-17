@@ -1,0 +1,117 @@
+package com.belhard.misha.entity;
+
+import java.io.Serializable;
+
+public class Ticket implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private int id;
+    private int userId;
+    private int routId;
+    private boolean reservationStatus;
+    private String dateReservation;
+    private boolean payStatus;
+    private String datePay;
+
+    public Ticket() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (id != ticket.id) return false;
+        if (userId != ticket.userId) return false;
+        if (routId != ticket.routId) return false;
+        if (reservationStatus != ticket.reservationStatus) return false;
+        if (payStatus != ticket.payStatus) return false;
+        if (dateReservation != null ? !dateReservation.equals(ticket.dateReservation) : ticket.dateReservation != null)
+            return false;
+        return datePay != null ? datePay.equals(ticket.datePay) : ticket.datePay == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + userId;
+        result = 31 * result + routId;
+        result = 31 * result + (reservationStatus ? 1 : 0);
+        result = 31 * result + (dateReservation != null ? dateReservation.hashCode() : 0);
+        result = 31 * result + (payStatus ? 1 : 0);
+        result = 31 * result + (datePay != null ? datePay.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", routId=" + routId +
+                ", reservationStatus=" + reservationStatus +
+                ", dateReservation='" + dateReservation + '\'' +
+                ", payStatus=" + payStatus +
+                ", datePay='" + datePay + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRoutId() {
+        return routId;
+    }
+
+    public void setRoutId(int routId) {
+        this.routId = routId;
+    }
+
+    public boolean isReservationStatus() {
+        return reservationStatus;
+    }
+
+    public void setReservationStatus(boolean reservationStatus) {
+        this.reservationStatus = reservationStatus;
+    }
+
+    public String getDateReservation() {
+        return dateReservation;
+    }
+
+    public void setDateReservation(String dateReservation) {
+        this.dateReservation = dateReservation;
+    }
+
+    public boolean isPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(boolean payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public String getDatePay() {
+        return datePay;
+    }
+
+    public void setDatePay(String datePay) {
+        this.datePay = datePay;
+    }
+}

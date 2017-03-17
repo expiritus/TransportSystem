@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="transport@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="transport">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="humanity"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sys"/>
+    <table id="8" parent="2" name="city"/>
+    <table id="9" parent="2" name="country"/>
+    <table id="10" parent="2" name="role"/>
+    <table id="11" parent="2" name="route"/>
+    <table id="12" parent="2" name="status"/>
+    <table id="13" parent="2" name="ticket"/>
+    <table id="14" parent="2" name="transport"/>
+    <table id="15" parent="2" name="transport_type"/>
+    <table id="16" parent="2" name="user"/>
+    <table id="17" parent="2" name="user_to_role"/>
+    <column id="18" parent="8" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="19" parent="8" name="city">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="8" name="country_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="21" parent="8" name="country_id">
+      <ColNames>country_id</ColNames>
+    </index>
+    <key id="22" parent="8" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="23" parent="8" name="city_ibfk_1">
+      <ColNames>country_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>country</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="24" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="25" parent="9" name="country">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="26" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="27" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="28" parent="10" name="role">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="29" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="30" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="11" name="transport_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="11" name="from">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="11" name="to">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="11" name="status_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="11" name="time_departure">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="11" name="arrival_time">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="37" parent="11" name="from">
+      <ColNames>from</ColNames>
+    </index>
+    <index id="38" parent="11" name="status_id">
+      <ColNames>status_id</ColNames>
+    </index>
+    <index id="39" parent="11" name="to">
+      <ColNames>to</ColNames>
+    </index>
+    <index id="40" parent="11" name="transport_id">
+      <ColNames>transport_id</ColNames>
+    </index>
+    <key id="41" parent="11" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="42" parent="11" name="route_ibfk_1">
+      <ColNames>transport_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>transport</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="43" parent="11" name="route_ibfk_2">
+      <ColNames>from</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="44" parent="11" name="route_ibfk_3">
+      <ColNames>to</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="45" parent="11" name="route_ibfk_4">
+      <ColNames>status_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>status</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="46" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="47" parent="12" name="status">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="48" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="49" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="50" parent="13" name="user_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="51" parent="13" name="route_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="13" name="reservation_status">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="13" name="date_reservation">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="13" name="pay_status">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="13" name="date_pay">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="56" parent="13" name="ticket_ibfk_2">
+      <ColNames>route_id</ColNames>
+    </index>
+    <index id="57" parent="13" name="user_id">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="58" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="59" parent="13" name="ticket_ibfk_1">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="60" parent="13" name="ticket_ibfk_2">
+      <ColNames>route_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>route</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="61" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="62" parent="14" name="transport_type_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="14" name="model">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="14" name="capacity">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="65" parent="14" name="speed">
+      <Position>5</Position>
+      <DataType>decimal(10)|0</DataType>
+    </column>
+    <index id="66" parent="14" name="transport_type_id">
+      <ColNames>transport_type_id</ColNames>
+    </index>
+    <key id="67" parent="14" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="68" parent="14" name="transport_ibfk_1">
+      <ColNames>transport_type_id</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>transport_type</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <column id="69" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="70" parent="15" name="type">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="71" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="72" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="73" parent="16" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="74" parent="16" name="login">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="16" name="email">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="16" name="password">
+      <Position>5</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="77" parent="16" name="email">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="78" parent="16" name="login">
+      <ColNames>login</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="79" parent="16" name="role_id">
+      <ColNames>password</ColNames>
+    </index>
+    <key id="80" parent="16" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="81" parent="16" name="login">
+      <ColNames>login</ColNames>
+      <UnderlyingIndexName>login</UnderlyingIndexName>
+    </key>
+    <key id="82" parent="16" name="email">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>email</UnderlyingIndexName>
+    </key>
+    <column id="83" parent="17" name="id_user">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="17" name="id_role">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="85" parent="17" name="id_role">
+      <ColNames>id_role</ColNames>
+    </index>
+    <key id="86" parent="17" name="PRIMARY">
+      <ColNames>id_user
+id_role</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="87" parent="17" name="user_to_role_ibfk_1">
+      <ColNames>id_user</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <foreign-key id="88" parent="17" name="user_to_role_ibfk_2">
+      <ColNames>id_role</ColNames>
+      <RefSchemaName>transport</RefSchemaName>
+      <RefTableName>role</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+  </database-model>
+</dataSource>
