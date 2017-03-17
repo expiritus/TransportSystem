@@ -5,11 +5,13 @@ import java.util.List;
 
 public interface DaoInterface<T> {
 
-    void insert(T ob) throws SQLException;
+    int insert(T ob) throws SQLException;
 
     void update(T ob) throws SQLException;
 
     void delete(T ob) throws SQLException;
 
     List<T> findAll(T ob) throws SQLException;
+
+    T findById(T ob) throws SQLException;
 }
