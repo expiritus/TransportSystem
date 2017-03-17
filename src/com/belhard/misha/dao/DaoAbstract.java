@@ -1,5 +1,6 @@
 package com.belhard.misha.dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public abstract class DaoAbstract implements DaoInterface<DaoAbstract> {
 
     @Override
     public List<DaoAbstract> findAll(DaoAbstract ob) throws SQLException {
+        return null;
+    }
+
+    private List<DaoAbstract> fillList(ResultSet resultSet){
         return null;
     }
 }
