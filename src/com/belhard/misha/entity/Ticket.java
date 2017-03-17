@@ -2,11 +2,10 @@ package com.belhard.misha.entity;
 
 import java.io.Serializable;
 
-public class Ticket implements Serializable {
+public class Ticket extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private int userId;
     private int routId;
     private boolean reservationStatus;
@@ -24,7 +23,6 @@ public class Ticket implements Serializable {
 
         Ticket ticket = (Ticket) o;
 
-        if (id != ticket.id) return false;
         if (userId != ticket.userId) return false;
         if (routId != ticket.routId) return false;
         if (reservationStatus != ticket.reservationStatus) return false;
@@ -36,8 +34,7 @@ public class Ticket implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + userId;
+        int result = userId;
         result = 31 * result + routId;
         result = 31 * result + (reservationStatus ? 1 : 0);
         result = 31 * result + (dateReservation != null ? dateReservation.hashCode() : 0);
@@ -49,22 +46,13 @@ public class Ticket implements Serializable {
     @Override
     public String toString() {
         return "Ticket{" +
-                "id=" + id +
-                ", userId=" + userId +
+                "userId=" + userId +
                 ", routId=" + routId +
                 ", reservationStatus=" + reservationStatus +
                 ", dateReservation='" + dateReservation + '\'' +
                 ", payStatus=" + payStatus +
                 ", datePay='" + datePay + '\'' +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getUserId() {

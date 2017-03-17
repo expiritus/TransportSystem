@@ -2,11 +2,10 @@ package com.belhard.misha.entity;
 
 import java.io.Serializable;
 
-public class UserToRole implements Serializable {
+public class UserToRole extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private int idRole;
 
     public UserToRole() {
@@ -19,31 +18,19 @@ public class UserToRole implements Serializable {
 
         UserToRole that = (UserToRole) o;
 
-        if (id != that.id) return false;
         return idRole == that.idRole;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + idRole;
-        return result;
+        return idRole;
     }
 
     @Override
     public String toString() {
         return "UserToRole{" +
-                "id=" + id +
-                ", idRole=" + idRole +
+                "idRole=" + idRole +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdRole() {

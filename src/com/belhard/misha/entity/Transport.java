@@ -2,11 +2,10 @@ package com.belhard.misha.entity;
 
 import java.io.Serializable;
 
-public class Transport implements Serializable {
+public class Transport extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private int transportTypeId;
     private String model;
     private int capacity;
@@ -22,7 +21,6 @@ public class Transport implements Serializable {
 
         Transport transport = (Transport) o;
 
-        if (id != transport.id) return false;
         if (transportTypeId != transport.transportTypeId) return false;
         if (capacity != transport.capacity) return false;
         if (speed != transport.speed) return false;
@@ -31,8 +29,7 @@ public class Transport implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + transportTypeId;
+        int result = transportTypeId;
         result = 31 * result + (model != null ? model.hashCode() : 0);
         result = 31 * result + capacity;
         result = 31 * result + (speed ? 1 : 0);
@@ -42,20 +39,11 @@ public class Transport implements Serializable {
     @Override
     public String toString() {
         return "Transport{" +
-                "id=" + id +
-                ", transportTypeId=" + transportTypeId +
+                "transportTypeId=" + transportTypeId +
                 ", model='" + model + '\'' +
                 ", capacity=" + capacity +
                 ", speed=" + speed +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getTransportTypeId() {

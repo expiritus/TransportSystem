@@ -2,11 +2,10 @@ package com.belhard.misha.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private String name;
     private String login;
     private String email;
@@ -22,7 +21,6 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
@@ -31,8 +29,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
@@ -42,20 +39,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

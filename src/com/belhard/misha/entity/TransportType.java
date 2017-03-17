@@ -2,11 +2,10 @@ package com.belhard.misha.entity;
 
 import java.io.Serializable;
 
-public class TransportType implements Serializable {
+public class TransportType extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private String type;
 
     public TransportType() {
@@ -19,31 +18,19 @@ public class TransportType implements Serializable {
 
         TransportType that = (TransportType) o;
 
-        if (id != that.id) return false;
         return type != null ? type.equals(that.type) : that.type == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
+        return type != null ? type.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "TransportType{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
+                "type='" + type + '\'' +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getType() {
