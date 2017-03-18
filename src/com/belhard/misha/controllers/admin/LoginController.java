@@ -40,7 +40,6 @@ public class LoginController extends HttpServlet {
 
             if(user.getId() == 0){
                 HttpUtils.referer(req, resp);
-                SessionUtils.setSessionAttribute(req, "login", login);
                 return;
             }
 
