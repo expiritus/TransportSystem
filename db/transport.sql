@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.24 (64 bit)
 MySQL - 5.7.17-0ubuntu0.16.04.1 : Database - transport
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -176,7 +177,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`name`,`login`,`email`,`password`) values (1,'Михаил','admin','admin@gmail.com','admin'),(2,'Алена','manager','manager@gmail.com','manager'),(3,'Василий','vasia','vasia@gmail.com','1234'),(4,'Тимофей','timoha','timoga@yandex.ru','1234');
+insert  into `user`(`id`,`name`,`login`,`email`,`password`) values (1,'Михаил','admin','admin@gmail.com','21232f297a57a5a743894a0e4a801fc3'),(2,'Алена','manager','manager@gmail.com','1d0258c2440a8d19e716292b231e3190'),(3,'Василий','vasia','vasia@gmail.com','1234'),(4,'Тимофей','timoha','timoga@yandex.ru','1234');
 
 /*Table structure for table `user_to_role` */
 

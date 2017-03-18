@@ -12,7 +12,10 @@ public interface DaoInterface<T> {
 
     void delete(T ob) throws SQLException;
 
-    ResultSet findAll(T ob) throws SQLException;
+    List<T> findAll(T ob) throws SQLException;
 
     T findById(T ob) throws SQLException;
+
+    List<T> fillListEntity(ResultSet resultSet) throws SQLException;
+
 }

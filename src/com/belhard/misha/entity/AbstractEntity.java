@@ -3,7 +3,7 @@ package com.belhard.misha.entity;
 
 public abstract class AbstractEntity {
 
-    private int id;
+    protected int id;
 
     public AbstractEntity() {
     }

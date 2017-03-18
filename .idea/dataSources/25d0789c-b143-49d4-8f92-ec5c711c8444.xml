@@ -341,7 +341,7 @@
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="85" parent="17" name="id_role">
+    <index id="85" parent="17" name="user_to_role_ibfk_2">
       <ColNames>id_role</ColNames>
     </index>
     <key id="86" parent="17" name="PRIMARY">
@@ -354,16 +354,16 @@ id_role</ColNames>
       <RefSchemaName>transport</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
     </foreign-key>
     <foreign-key id="88" parent="17" name="user_to_role_ibfk_2">
       <ColNames>id_role</ColNames>
       <RefSchemaName>transport</RefSchemaName>
       <RefTableName>role</RefTableName>
       <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>
