@@ -12,6 +12,8 @@ import java.io.IOException;
 @WebServlet("/index.html")
 public class IndexController extends HttpServlet {
 
+    public static final String URL = "index.html";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);

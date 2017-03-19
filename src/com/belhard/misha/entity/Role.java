@@ -1,12 +1,15 @@
 package com.belhard.misha.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Role extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private String role;
+
+    private List<User> users;
 
     public Role() {
     }
@@ -39,5 +42,13 @@ public class Role extends AbstractEntity implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

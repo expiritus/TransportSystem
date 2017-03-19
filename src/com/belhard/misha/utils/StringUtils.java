@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 public final class StringUtils {
 
     private StringUtils(){
-        throw new AssertionError("Class contains static methods only. You should not instantiate it!");
+        throw new InstantiationError("Class contains static methods only. You should not instantiate it!");
     }
 
     public static boolean isEmpty(String str){

@@ -1,6 +1,7 @@
 package com.belhard.misha.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User extends AbstractEntity implements Serializable {
 
@@ -10,6 +11,8 @@ public class User extends AbstractEntity implements Serializable {
     private String login;
     private String email;
     private String password;
+
+    private List<Role> roles;
 
     public User() {
     }
@@ -76,5 +79,13 @@ public class User extends AbstractEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

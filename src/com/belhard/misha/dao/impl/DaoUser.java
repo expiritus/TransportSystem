@@ -1,6 +1,7 @@
-package com.belhard.misha.dao;
+package com.belhard.misha.dao.impl;
 
 import com.belhard.misha.db.ConnectDb;
+import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
 
 import java.sql.Connection;
@@ -14,7 +15,20 @@ public class DaoUser extends DaoAbstract<User> {
 
     @Override
     public int insert(User ob) throws SQLException {
-        return 0;
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(
+                    "INSERT INTO " + ob.getClass().getSimpleName().toLowerCase() +
+                            " (name, login, email, password) " +
+                            " VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS
+            )){
+                prepared.setString(1, ob.getName());
+                prepared.setString(2, ob.getLogin());
+                prepared.setString(3, ob.getEmail());
+                prepared.setString(4, ob.getPassword());
+                prepared.execute();
+                return lastInsertedId(prepared);
+            }
+        }
     }
 
     @Override
@@ -23,11 +37,11 @@ public class DaoUser extends DaoAbstract<User> {
     }
 
     public User findByLogin(User ob) throws SQLException{
-        try (Connection connection = ConnectDb.getInstance().getConnection()){
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT * FROM " + ob.getClass().getSimpleName().toLowerCase() +
-                    " WHERE login = ? AND password = ?")
-            ) {
+                        " WHERE login = ? AND password = ?"
+            )) {
                 prepared.setString(1, ob.getLogin());
                 prepared.setString(2, ob.getPassword());
                 try(ResultSet resultSet = prepared.executeQuery()){
@@ -35,6 +49,31 @@ public class DaoUser extends DaoAbstract<User> {
                 }
             }
         }
+    }
+
+    public User getRolesByUserId(User ob) throws SQLException{
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(
+                    "SELECT role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +
+                            " WHERE id_user = ?"
+            )){
+                prepared.setInt(1, ob.getId());
+                try(ResultSet resultSet = prepared.executeQuery()){
+                    ob.setRoles(fillRolesToUser(resultSet));
+                    return ob;
+                }
+            }
+        }
+    }
+
+    private List<Role> fillRolesToUser(ResultSet resultSet) throws SQLException{
+        List<Role> roles = new ArrayList<>();
+        while (resultSet.next()){
+            Role role = new Role();
+            role.setRole(resultSet.getString("role"));
+            roles.add(role);
+        }
+        return roles;
     }
 
     public User fillEntity(ResultSet resultSet) throws SQLException {

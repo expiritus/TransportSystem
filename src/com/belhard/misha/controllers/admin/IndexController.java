@@ -1,8 +1,8 @@
 package com.belhard.misha.controllers.admin;
 
 
+import com.belhard.misha.controllers.admin.auth.LoginController;
 import com.belhard.misha.utils.HttpUtils;
-import com.belhard.misha.utils.SessionUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +14,14 @@ import java.io.IOException;
 @WebServlet("/admin")
 public class IndexController extends HttpServlet {
 
+    public static final String URL = "admin";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if(SessionUtils.getSessionAttribute(req, "auth") == null){
-            HttpUtils.redirect(resp, "/login");
+        if (HttpUtils.getSessionAttribute(req, "authUser") == null) {
+            HttpUtils.redirect(resp, LoginController.URL);
             return;
         }
 

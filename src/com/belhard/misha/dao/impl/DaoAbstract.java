@@ -1,4 +1,6 @@
-package com.belhard.misha.dao;
+package com.belhard.misha.dao.impl;
+
+import com.belhard.misha.dao.DaoInterface;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +15,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
     }
 
     @Override
-    public List<T> findAll(T ob) throws SQLException {
+    public List<T> findAll(Class<T> c) throws SQLException {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package com.belhard.misha.dao;
+package com.belhard.misha.dao.impl;
 
 import com.belhard.misha.entity.Role;
 

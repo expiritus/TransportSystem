@@ -1,4 +1,4 @@
-package com.belhard.misha.dao;
+package com.belhard.misha.dao.impl;
 
 import com.belhard.misha.entity.Transport;
 
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DaoTransport extends DaoAbstract<Transport>{
+public class DaoTransport extends DaoAbstract<Transport> {
 
     @Override
     public int insert(Transport ob) throws SQLException {
