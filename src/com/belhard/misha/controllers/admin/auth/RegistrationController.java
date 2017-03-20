@@ -58,7 +58,7 @@ public class RegistrationController extends HttpServlet {
         } catch (SQLException e) {
             req.setAttribute("failSaveUser", "Пользователь с таким логином/email уже существует");
             stateFull(req, name, login, email);
-            HttpUtils.forward(req, resp, "Fail save user", "/WEB-INF/pages/admin/registration.jsp");
+            HttpUtils.forward(req, resp, "Fail save user", "/WEB-INF/pages/admin/auth/registration.jsp");
         }
 
     }

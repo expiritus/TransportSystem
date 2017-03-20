@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="layout/header.jsp" />
+<jsp:include page="../layout/header.jsp" />
 <p>${requestScope.failSaveUser}</p>
 <form action="registration" method="POST">
     <p><input type="text" name="name" placeholder="Имя" value="${sessionScope.name}"></p>
@@ -18,4 +18,4 @@
     <p><a href="login">Логин</a></p>
     <p><button type="submit">Отправить</button></p>
 </form>
-<jsp:include page="layout/footer.jsp" />
+<jsp:include page="../layout/footer.jsp" />

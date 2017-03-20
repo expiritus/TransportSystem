@@ -23,7 +23,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        HttpUtils.forward(req, resp, "Login", "/WEB-INF/pages/admin/login.jsp");
+        HttpUtils.forward(req, resp, "Login", "/WEB-INF/pages/admin/auth/login.jsp");
     }
 
     @Override
