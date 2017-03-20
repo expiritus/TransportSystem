@@ -4,6 +4,7 @@ import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
+import com.belhard.misha.utils.PropertyUtils;
 import com.belhard.misha.utils.StringUtils;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -45,7 +47,7 @@ public class LoginController extends HttpServlet {
         user.setPassword(password);
 
         try {
-            user = daoUser.findByLogin(user);
+            user = daoUser.findByLoginAndPassword(user);
             AuthUtils.authUser(req, resp, user, login);
         } catch (SQLException e) {
             HttpUtils.removeSession(req, "authUser");
@@ -53,21 +55,24 @@ public class LoginController extends HttpServlet {
     }
 
     private int validateFields(HttpServletRequest req, String login, String password) {
-        String requiredText = "Поле не может быть пустым";
+        Properties properties = PropertyUtils.getValidProperties();
+        String errorValidateLogin = properties.getProperty("errorValidateLogin");
+        String errorValidatePassword = properties.getProperty("errorValidatePassword");
+
         int countValidateFields = 0;
         if (StringUtils.isEmpty(login) || StringUtils.isBlank(login)) {
-            HttpUtils.setSessionAttribute(req, "errorValidateLogin", requiredText);
-            HttpUtils.invalidateByAttribute(req, "userNotFound");
+            HttpUtils.setSessionAttribute(req, "errorValidateLogin", errorValidateLogin);
+            HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
         } else {
-            HttpUtils.invalidateByAttribute(req, "errorValidateLogin");
+            HttpUtils.invalidateSessionByAttribute(req, "errorValidateLogin");
             countValidateFields++;
         }
 
         if (StringUtils.isEmpty(password) || StringUtils.isBlank(password)) {
-            HttpUtils.setSessionAttribute(req, "errorValidatePassword", requiredText);
-            HttpUtils.invalidateByAttribute(req, "userNotFound");
+            HttpUtils.setSessionAttribute(req, "errorValidatePassword", errorValidatePassword);
+            HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
         } else {
-            HttpUtils.invalidateByAttribute(req, "errorValidatePassword");
+            HttpUtils.invalidateSessionByAttribute(req, "errorValidatePassword");
             countValidateFields++;
         }
         return countValidateFields;

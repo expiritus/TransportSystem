@@ -7,7 +7,7 @@
     <p><input type="password" name="password" placeholder="Пароль"></p>
     <p>${sessionScope.errorValidatePassword}</p>
     <p>${sessionScope.userNotFound}</p>
-    <p><a href="registration">Регистрация</a></p>
+    <p><a href="${pageContext.request.contextPath}/registration">Регистрация</a></p>
     <p><button type="submit">Отправить</button></p>
 </form>
 <jsp:include page="/WEB-INF/pages/main/layout/footer.jsp" />

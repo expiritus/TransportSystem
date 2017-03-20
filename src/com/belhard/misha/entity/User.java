@@ -1,6 +1,7 @@
 package com.belhard.misha.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User extends AbstractEntity implements Serializable {
@@ -15,6 +16,7 @@ public class User extends AbstractEntity implements Serializable {
     private List<Role> roles;
 
     public User() {
+        roles = new ArrayList<>();
     }
 
     @Override

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {"/admin/*"})
+@WebServlet("/admin/*")
 public class ViewCategoryController extends HttpServlet {
 
 

@@ -4,4 +4,11 @@
     <title>${requestScope.title}</title>
 </head>
 <body>
-main header
+<header>
+    <span><a href="${pageContext.request.contextPath}/user">${sessionScope.authUser.login}</a></span>
+    <% if (session.getAttribute("authUser") == null ) {%>
+        <a href="${pageContext.request.contextPath}/login">Login</a>
+        <a href="${pageContext.request.contextPath}/registration">Registration</a>
+    <% } %>
+    <a href="${pageContext.request.contextPath}/logout">Logout</a>
+</header>

@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConnectDb {
-    private static ConnectDb ourInstance = new ConnectDb();
+    private static final ConnectDb instance = new ConnectDb();
     private DataSource dataSource;
 
     public static ConnectDb getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     private ConnectDb() {

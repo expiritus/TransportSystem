@@ -40,7 +40,7 @@ public final class HttpUtils {
         session.invalidate();
     }
 
-    public static void invalidateByAttribute(HttpServletRequest req, String attr){
+    public static void invalidateSessionByAttribute(HttpServletRequest req, String attr) {
         HttpSession session = req.getSession();
         session.removeAttribute(attr);
     }
@@ -62,4 +62,5 @@ public final class HttpUtils {
         HttpSession session = req.getSession();
         session.removeAttribute(key);
     }
+
 }

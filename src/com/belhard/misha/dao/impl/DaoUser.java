@@ -31,12 +31,25 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
+    public void assignRoleUser(User ob) throws SQLException{
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(
+                    "INSERT INTO user_to_role (id_user, id_role) " +
+                            "VALUES (?, (SELECT id FROM role WHERE role='user'))"
+            )){
+                prepared.setInt(1, ob.getId());
+                prepared.execute();
+            }
+        }
+    }
+
+
     @Override
     public void update(User ob) throws SQLException {
 
     }
 
-    public User findByLogin(User ob) throws SQLException{
+    public User findByLoginAndPassword(User ob) throws SQLException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT * FROM " + ob.getClass().getSimpleName().toLowerCase() +
