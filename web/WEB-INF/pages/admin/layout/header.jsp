@@ -16,6 +16,6 @@
     <a href="${pageContext.request.contextPath}/admin/transport">Transport</a>
     <a href="${pageContext.request.contextPath}/admin/transport-type">Transport type</a>
     <a href="${pageContext.request.contextPath}/admin/user"></a>
-    <a href="${pageContext.request.contextPath}logout">Logout</a>
+    <a href="${pageContext.request.contextPath}/logout">Logout</a>
     <span>Вы вошли как <a href="${pageContext.request.contextPath}/user">${sessionScope.authUser.login}</a></span>
 </header>

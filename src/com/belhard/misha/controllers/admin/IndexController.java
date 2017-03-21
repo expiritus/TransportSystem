@@ -4,7 +4,6 @@ package com.belhard.misha.controllers.admin;
 import com.belhard.misha.controllers.admin.auth.LoginController;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
-import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
 import javax.servlet.ServletException;
@@ -23,14 +22,14 @@ public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if(HttpUtils.getSessionAttribute(req, "authUser") == null){
+        if (HttpUtils.getSessionAttribute(req, "authUser") == null) {
             HttpUtils.redirect(resp, LoginController.URL);
             return;
         }
 
         User authUser = (User) HttpUtils.getSessionAttribute(req, "authUser");
-        for(Role role : authUser.getRoles()){
-            if(role.getRole().equals("admin") || role.getRole().equals("manager")){
+        for (Role role : authUser.getRoles()) {
+            if (role.getRole().equals("admin") || role.getRole().equals("manager")) {
                 HttpUtils.forward(req, resp, "Admin Panel", "/WEB-INF/pages/admin/index.jsp");
                 return;
             }
