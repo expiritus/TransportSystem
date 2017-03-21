@@ -1089,7 +1089,7 @@
       <workItem from="1490015666824" duration="2686000" />
       <workItem from="1490018507424" duration="20791000" />
       <workItem from="1490082026187" duration="5580000" />
-      <workItem from="1490087881328" duration="22000" />
+      <workItem from="1490087881328" duration="81000" />
     </task>
     <task id="LOCAL-00001" summary="entity and dao">
       <created>1489787069369</created>
@@ -1189,11 +1189,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490087899855</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="auth users">
+      <created>1490087906065</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1490087906065</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81357000" />
+    <option name="totallyTimeSpent" value="81416000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
