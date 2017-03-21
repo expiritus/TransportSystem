@@ -22,4 +22,14 @@ public class DaoTicket extends DaoAbstract<Ticket> {
     public List<Ticket> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
+
+    @Override
+    public Ticket findById(Ticket ob) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Ticket fillEntity(ResultSet resultSet) throws SQLException {
+        return null;
+    }
 }

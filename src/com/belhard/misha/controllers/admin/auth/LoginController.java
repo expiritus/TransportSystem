@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
         int countValidateFields = validateFields(req, login, password);
         if (countValidateFields < 2) {
             stateFull(req, login);
-            HttpUtils.redirect(resp, LoginController.URL);
+            HttpUtils.redirect(resp, req.getContextPath() + "/" +LoginController.URL);
             return;
         }
         password = StringUtils.MD5(password);
@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
     }
 
     private int validateFields(HttpServletRequest req, String login, String password) {
-        Properties properties = PropertyUtils.getValidProperties();
+        Properties properties = PropertyUtils.getProperties("/settings/error-valid.properties");
         String errorValidateLogin = properties.getProperty("errorValidateLogin");
         String errorValidatePassword = properties.getProperty("errorValidatePassword");
 

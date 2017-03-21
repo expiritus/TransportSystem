@@ -13,8 +13,8 @@ public class PropertyUtils {
         throw new InstantiationError("Class contains static method only. You should not instantiate it!");
     }
 
-    public static Properties getValidProperties(){
-        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("/settings/error-valid.properties");
+    public static Properties getProperties(String pathToProperties){
+        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(pathToProperties);
         Properties properties = new Properties();
         try {
             properties.load(new InputStreamReader(stream, Charset.forName("utf8")));

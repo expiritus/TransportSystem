@@ -7,8 +7,10 @@
           <!--driverClassName="com.mysql.jdbc.Driver"-->
           <!--username="root"-->
           <!--password="root"-->
-          <!--maxActive="1"-->
-          <!--maxIdle="1"  />-->
+          <!--maxTotal="100"-->
+          <!--maxIdle="30"-->
+          <!--maxWaitMillis="10000" />-->
+
 
 <Context>
     <ResourceLink name="jdbc/transport_db" global="jdbc/transport_db"/>

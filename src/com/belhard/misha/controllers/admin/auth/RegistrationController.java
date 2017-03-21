@@ -58,7 +58,7 @@ public class RegistrationController extends HttpServlet {
             daoUser.assignRoleUser(user);
             AuthUtils.authUser(req, resp, user, user.getLogin());
         } catch (SQLException e) {
-            Properties properties = PropertyUtils.getValidProperties();
+            Properties properties = PropertyUtils.getProperties("/settings/error-valid.properties");
             String failSaveUser = properties.getProperty("failSaveUser");
             req.setAttribute("failSaveUser", failSaveUser);
             stateFull(req, name, login, email, password, repeatPassword);
@@ -76,7 +76,7 @@ public class RegistrationController extends HttpServlet {
     }
 
     private int validateRequiredFields(HttpServletRequest req, String name, String login, String email, String password, String repeatPassword){
-        Properties validSettings = PropertyUtils.getValidProperties();
+        Properties validSettings = PropertyUtils.getProperties("/settings/error-valid.properties");
         String errorValidName = validSettings.getProperty("errorValidName");
         String errorValidLogin = validSettings.getProperty("errorValidLogin");
         String errorValidEmail = validSettings.getProperty("errorValidEmail");

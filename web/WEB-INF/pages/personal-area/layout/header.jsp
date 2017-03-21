@@ -4,3 +4,8 @@
     <title>${requestScope.title}</title>
 </head>
 <body>
+<header>
+    <% if (request.getAttribute("adminPanel") != null) {%>
+        <a href="${pageContext.request.contextPath}/admin">Admin panel</a>
+    <% } %>
+</header>

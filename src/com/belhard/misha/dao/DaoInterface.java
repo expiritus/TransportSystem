@@ -18,4 +18,6 @@ public interface DaoInterface<T> {
 
     List<T> fillListEntity(ResultSet resultSet) throws SQLException;
 
+    T fillEntity(ResultSet resultSet) throws SQLException;
+
 }

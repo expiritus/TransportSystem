@@ -22,4 +22,14 @@ public class DaoStatus extends DaoAbstract<Status> {
     public List<Status> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
+
+    @Override
+    public Status findById(Status ob) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Status fillEntity(ResultSet resultSet) throws SQLException {
+        return null;
+    }
 }

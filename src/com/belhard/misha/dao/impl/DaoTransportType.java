@@ -22,4 +22,14 @@ public class DaoTransportType extends DaoAbstract<TransportType> {
     public List<TransportType> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
+
+    @Override
+    public TransportType findById(TransportType ob) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public TransportType fillEntity(ResultSet resultSet) throws SQLException {
+        return null;
+    }
 }

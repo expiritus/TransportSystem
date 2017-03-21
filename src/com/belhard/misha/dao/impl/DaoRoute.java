@@ -22,4 +22,14 @@ public class DaoRoute extends DaoAbstract<Route> {
     public List<Route> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
+
+    @Override
+    public Route findById(Route ob) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Route fillEntity(ResultSet resultSet) throws SQLException {
+        return null;
+    }
 }

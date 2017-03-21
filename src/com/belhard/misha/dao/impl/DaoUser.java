@@ -115,4 +115,9 @@ public class DaoUser extends DaoAbstract<User> {
         }
         return list;
     }
+
+    @Override
+    public User findById(User ob) throws SQLException {
+        return null;
+    }
 }

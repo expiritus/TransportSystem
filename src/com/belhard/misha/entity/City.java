@@ -9,6 +9,7 @@ public class City extends AbstractEntity implements Serializable {
 
     private String city;
     private int countryId;
+    private Country country;
 
     public City() {
 
@@ -34,7 +35,7 @@ public class City extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "CityCategory{" +
                 "city='" + city + '\'' +
                 ", countryId=" + countryId +
                 '}';
@@ -54,5 +55,13 @@ public class City extends AbstractEntity implements Serializable {
 
     public void setCountryId(int countryId) {
         this.countryId = countryId;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

@@ -28,7 +28,7 @@ public class Country extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "CountryCategory{" +
                 "country='" + country + '\'' +
                 '}';
     }

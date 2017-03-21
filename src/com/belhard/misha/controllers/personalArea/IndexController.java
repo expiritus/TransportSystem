@@ -1,6 +1,7 @@
 package com.belhard.misha.controllers.personalArea;
 
 import com.belhard.misha.controllers.admin.auth.LoginController;
+import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -18,9 +19,13 @@ public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if(HttpUtils.getSessionAttribute(req, "authUser") == null){
-            HttpUtils.redirect(resp, LoginController.URL);
+        if(AuthUtils.closeAccess(req, resp)){
             return;
+        }
+
+        User user = (User) HttpUtils.getSessionAttribute(req, "authUser");
+        if(AuthUtils.isAdmin(user) || AuthUtils.isManager(user)){
+            req.setAttribute("adminPanel", true);
         }
 
         HttpUtils.forward(req, resp, "Personal Area", "/WEB-INF/pages/personal-area/index.jsp");

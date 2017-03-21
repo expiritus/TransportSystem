@@ -23,4 +23,14 @@ public class DaoRole extends DaoAbstract<Role> {
     public List<Role> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
+
+    @Override
+    public Role findById(Role ob) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Role fillEntity(ResultSet resultSet) throws SQLException {
+        return null;
+    }
 }
