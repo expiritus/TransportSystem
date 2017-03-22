@@ -3,8 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
-<%for (City o : (List<City>) request.getAttribute("cities")) {%>
-<p><%=o.getId()%> <%=o.getCity()%> <%=o.getCountry().getCountry()%></p>
+<%for (City city : (List<City>) request.getAttribute("cities")) {%>
+<p><%=city.getId()%> <%=city.getCity()%> <%=city.getCountry().getCountry()%></p>
 <% } %>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

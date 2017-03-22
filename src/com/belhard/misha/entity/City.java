@@ -1,10 +1,12 @@
 package com.belhard.misha.entity;
 
 
+import com.belhard.misha.customAnnotations.ClassMapping;
 import com.belhard.misha.customAnnotations.FieldMapping;
 
 import java.io.Serializable;
 
+@ClassMapping(name = "city")
 public class City extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

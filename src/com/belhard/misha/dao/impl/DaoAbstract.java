@@ -1,5 +1,6 @@
 package com.belhard.misha.dao.impl;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
 import com.belhard.misha.customAnnotations.FieldMapping;
 import com.belhard.misha.customAnnotations.IgnoreForInsert;
 import com.belhard.misha.dao.DaoInterface;
@@ -58,6 +59,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         }
     }
 
+
     @Override
     public void update(T ob) throws SQLException {
 
@@ -67,7 +69,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
     public void delete(Class<T> c, int id) throws SQLException {
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(
-                    "DELETE FROM " + c.getSimpleName().toLowerCase() +
+                    "DELETE FROM " + getTableName(c) +
                             " WHERE id = ?"
             )) {
                 prepared.setInt(1, id);
@@ -80,7 +82,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
     public List<T> findAll(Class<T> c) throws SQLException {
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT * FROM " + c.getSimpleName().toLowerCase()
+                    "SELECT * FROM " + getTableName(c)
             )) {
                 try (ResultSet resultSet = prepared.executeQuery()) {
                     return fillListEntity(resultSet);
@@ -91,10 +93,11 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
 
     @Override
-    public T findById(int id, Class<T> c) throws SQLException {
+    public T findById(Class<T> c, int id) throws SQLException {
+
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT * FROM " + c.getSimpleName().toLowerCase() +
+                    "SELECT * FROM " + getTableName(c) +
                             " WHERE id = ?"
             )) {
                 prepared.setInt(1, id);
@@ -112,5 +115,12 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
             lastInserted = resultSet.getInt(1);
         }
         return lastInserted;
+    }
+
+    protected String getTableName(Class<T> c){
+        return (c.getAnnotation(ClassMapping.class) != null &&
+                !c.getAnnotation(ClassMapping.class).name().isEmpty()) ?
+                c.getAnnotation(ClassMapping.class).name() :
+                c.getName().toLowerCase();
     }
 }

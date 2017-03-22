@@ -66,18 +66,6 @@ public class DaoUser extends DaoAbstract<User> {
         return roles;
     }
 
-    public User fillEntity(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        while (resultSet.next()) {
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setLogin(resultSet.getString("login"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPassword(resultSet.getString("password"));
-        }
-        return user;
-    }
-
     @Override
     public List<User> fillListEntity(ResultSet resultSet) throws SQLException {
         List<User> list = new ArrayList<>();
@@ -91,6 +79,18 @@ public class DaoUser extends DaoAbstract<User> {
             list.add(user);
         }
         return list;
+    }
+
+    public User fillEntity(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        if (resultSet.next()) {
+            user.setId(resultSet.getInt("id"));
+            user.setName(resultSet.getString("name"));
+            user.setLogin(resultSet.getString("login"));
+            user.setEmail(resultSet.getString("email"));
+            user.setPassword(resultSet.getString("password"));
+        }
+        return user;
     }
 
 }

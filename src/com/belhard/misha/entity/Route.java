@@ -1,9 +1,14 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
+
 import java.io.Serializable;
 
+@ClassMapping(name = "route")
 public class Route extends AbstractEntity implements Serializable{
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private int transportId;
@@ -12,6 +17,18 @@ public class Route extends AbstractEntity implements Serializable{
     private int statusId;
     private String timeDeparture;
     private String arrivalTime;
+
+    @IgnoreForInsert
+    private Transport transport;
+
+    @IgnoreForInsert
+    private City fromCity;
+
+    @IgnoreForInsert
+    private City toCity;
+
+    @IgnoreForInsert
+    private Status status;
 
     public Route() {
     }
@@ -101,5 +118,37 @@ public class Route extends AbstractEntity implements Serializable{
 
     public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+
+    public City getFromCity() {
+        return fromCity;
+    }
+
+    public void setFromCity(City fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public City getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(City toCity) {
+        this.toCity = toCity;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

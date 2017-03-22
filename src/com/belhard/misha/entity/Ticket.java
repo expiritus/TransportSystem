@@ -1,7 +1,11 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
+
 import java.io.Serializable;
 
+
+@ClassMapping(name = "ticket")
 public class Ticket extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

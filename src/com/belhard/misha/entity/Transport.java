@@ -1,18 +1,28 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
+
 import java.io.Serializable;
 
+
+@ClassMapping(name = "transport")
 public class Transport extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private int transportTypeId;
     private String model;
     private int capacity;
-    private boolean speed;
+    private double speed;
+
+    @IgnoreForInsert
+    private TransportType transportType;
 
     public Transport() {
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -23,22 +33,25 @@ public class Transport extends AbstractEntity implements Serializable {
 
         if (transportTypeId != transport.transportTypeId) return false;
         if (capacity != transport.capacity) return false;
-        if (speed != transport.speed) return false;
+        if (Double.compare(transport.speed, speed) != 0) return false;
         return model != null ? model.equals(transport.model) : transport.model == null;
     }
 
     @Override
     public int hashCode() {
-        int result = transportTypeId;
+        int result;
+        long temp;
+        result = transportTypeId;
         result = 31 * result + (model != null ? model.hashCode() : 0);
         result = 31 * result + capacity;
-        result = 31 * result + (speed ? 1 : 0);
+        temp = Double.doubleToLongBits(speed);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
     public String toString() {
-        return "Transport{" +
+        return "TransportCategory{" +
                 "transportTypeId=" + transportTypeId +
                 ", model='" + model + '\'' +
                 ", capacity=" + capacity +
@@ -70,11 +83,19 @@ public class Transport extends AbstractEntity implements Serializable {
         this.capacity = capacity;
     }
 
-    public boolean isSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(boolean speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public TransportType getTransportType() {
+        return transportType;
+    }
+
+    public void setTransportType(TransportType transportType) {
+        this.transportType = transportType;
     }
 }

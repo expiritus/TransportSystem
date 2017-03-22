@@ -1,11 +1,14 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
 import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@ClassMapping(name = "user")
 public class User extends AbstractEntity implements Serializable {
 
     @IgnoreForInsert

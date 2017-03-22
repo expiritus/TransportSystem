@@ -14,7 +14,7 @@ public interface DaoInterface<T> {
 
     List<T> findAll(Class<T> c) throws SQLException;
 
-    T findById(int id, Class<T> c) throws SQLException;
+    T findById(Class<T> c, int id) throws SQLException;
 
     List<T> fillListEntity(ResultSet resultSet) throws SQLException;
 

@@ -26,7 +26,7 @@ public class DaoCountry extends DaoAbstract<Country> {
     @Override
     public Country fillEntity(ResultSet resultSet) throws SQLException {
         Country country = new Country();
-        while (resultSet.next()){
+        if (resultSet.next()){
             country.setId(resultSet.getInt("id"));
             country.setCountry(resultSet.getString("country"));
         }

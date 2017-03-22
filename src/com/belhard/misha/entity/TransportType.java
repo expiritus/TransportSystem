@@ -1,7 +1,12 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
+
 import java.io.Serializable;
 
+
+
+@ClassMapping(name = "transport_type")
 public class TransportType extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +33,7 @@ public class TransportType extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "TransportType{" +
+        return "TransportTypeCategory{" +
                 "type='" + type + '\'' +
                 '}';
     }

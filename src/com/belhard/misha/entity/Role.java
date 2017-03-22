@@ -1,14 +1,20 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
+
 import java.io.Serializable;
 import java.util.List;
 
+@ClassMapping(name = "role")
 public class Role extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private String role;
 
+    @IgnoreForInsert
     private List<User> users;
 
     public Role() {
