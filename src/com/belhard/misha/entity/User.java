@@ -1,7 +1,6 @@
 package com.belhard.misha.entity;
 
-import com.belhard.misha.CustomAnnotations.IgnoreForInsert;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.List;
 
 public class User extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private String name;

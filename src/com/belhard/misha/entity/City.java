@@ -1,6 +1,8 @@
 package com.belhard.misha.entity;
 
 
+import com.belhard.misha.customAnnotations.FieldMapping;
+
 import java.io.Serializable;
 
 public class City extends AbstractEntity implements Serializable {
@@ -8,7 +10,10 @@ public class City extends AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String city;
+
+    @FieldMapping(name = "country_id")
     private int countryId;
+
     private Country country;
 
     public City() {

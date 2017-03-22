@@ -1,11 +1,11 @@
 package com.belhard.misha.dao.impl;
 
-import com.belhard.misha.CustomAnnotations.IgnoreForInsert;
+import com.belhard.misha.customAnnotations.FieldMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
 import com.belhard.misha.dao.DaoInterface;
 import com.belhard.misha.db.ConnectDb;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         Field[] fieldsReflect = ob.getClass().getDeclaredFields();
         List<Field> clearEntityFields = new ArrayList<>();
         for (Field field : fieldsReflect) {
-            if (!Modifier.isStatic(field.getModifiers()) && field.getAnnotation(IgnoreForInsert.class) == null) {
+            if (field.getAnnotation(IgnoreForInsert.class) == null) {
                 clearEntityFields.add(field);
             }
         }
@@ -30,7 +30,11 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         sql.append("INSERT INTO ").append(ob.getClass().getSimpleName().toLowerCase()).append(" (");
         StringBuilder values = new StringBuilder();
         for (Field field : clearEntityFields) {
-            sql.append(field.getName()).append(",");
+            String name = (field.getAnnotation(FieldMapping.class) != null &&
+                    !field.getAnnotation(FieldMapping.class).name().isEmpty()) ?
+                    field.getAnnotation(FieldMapping.class).name() :
+                    field.getName();
+            sql.append(name).append(",");
             values.append("?,");
         }
         sql.setLength(sql.length() - 1);
@@ -43,11 +47,9 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
-
                 for (int i = 0; i < clearEntityFields.size(); i++) {
                     clearEntityFields.get(i).setAccessible(true);
                     prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
-
                 }
 
                 prepared.execute();
