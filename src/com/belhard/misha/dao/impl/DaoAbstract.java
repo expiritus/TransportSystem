@@ -19,23 +19,23 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
     @Override
     public int insert(T ob) throws SQLException {
         Field[] fieldsReflect = ob.getClass().getDeclaredFields();
-        List<Field> clearReflectFields = new ArrayList<>();
+        List<Field> clearEntityFields = new ArrayList<>();
         for (Field field : fieldsReflect) {
             if (!Modifier.isStatic(field.getModifiers()) && field.getAnnotation(IgnoreForInsert.class) == null) {
-                clearReflectFields.add(field);
+                clearEntityFields.add(field);
             }
         }
 
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO ").append(ob.getClass().getSimpleName().toLowerCase()).append(" (");
 
-        for (Field field : clearReflectFields) {
+        for (Field field : clearEntityFields) {
             sql.append(field.getName()).append(",");
 
         }
         sql.setLength(sql.length() - 1);
         sql.append(") VALUES (");
-        for (int i = 0; i < clearReflectFields.size(); i++) {
+        for (int i = 0; i < clearEntityFields.size(); i++) {
             sql.append("?,");
         }
         sql.setLength(sql.length() - 1);
@@ -44,10 +44,10 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-                for (int i = 0; i < clearReflectFields.size(); i++) {
+                for (int i = 0; i < clearEntityFields.size(); i++) {
                     try {
-                        clearReflectFields.get(i).setAccessible(true);
-                        prepared.setObject(i + 1, clearReflectFields.get(i).get(ob));
+                        clearEntityFields.get(i).setAccessible(true);
+                        prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
