@@ -17,7 +17,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
 
     @Override
-    public int insert(T ob) throws SQLException {
+    public int insert(T ob) throws SQLException, IllegalAccessException {
         Field[] fieldsReflect = ob.getClass().getDeclaredFields();
         List<Field> clearEntityFields = new ArrayList<>();
         for (Field field : fieldsReflect) {
@@ -45,12 +45,9 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
             try (PreparedStatement prepared = connection.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
 
                 for (int i = 0; i < clearEntityFields.size(); i++) {
-                    try {
-                        clearEntityFields.get(i).setAccessible(true);
-                        prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+                    clearEntityFields.get(i).setAccessible(true);
+                    prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
+
                 }
 
                 prepared.execute();

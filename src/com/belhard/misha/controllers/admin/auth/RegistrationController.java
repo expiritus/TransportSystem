@@ -63,6 +63,8 @@ public class RegistrationController extends HttpServlet {
             req.setAttribute("failSaveUser", failSaveUser);
             stateFull(req, name, login, email, password, repeatPassword);
             HttpUtils.forward(req, resp, "Fail save user", "/WEB-INF/pages/admin/auth/registration.jsp");
+        } catch (IllegalAccessException e){
+            throw new RuntimeException("Can not access to entity fields");
         }
 
     }

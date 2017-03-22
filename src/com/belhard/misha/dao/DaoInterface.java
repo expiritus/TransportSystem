@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DaoInterface<T> {
 
-    int insert(T ob) throws SQLException;
+    int insert(T ob) throws SQLException, IllegalAccessException;
 
     void update(T ob) throws SQLException;
 
