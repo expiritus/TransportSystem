@@ -177,7 +177,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`name`,`login`,`email`,`password`) values (1,'Михаил','admin','admin@gmail.com','21232f297a57a5a743894a0e4a801fc3'),(2,'Алена','manager','manager@gmail.com','1d0258c2440a8d19e716292b231e3190'),(3,'Василий','vasia','vasia@gmail.com','1234'),(4,'Тимофей','timoha','timoga@yandex.ru','1234');
+insert  into `user`(`id`,`name`,`login`,`email`,`password`) values (1,'Михаил','admin','admin@gmail.com','21232f297a57a5a743894a0e4a801fc3'),(2,'Алена','manager','manager@gmail.com','1d0258c2440a8d19e716292b231e3190'),(3,'Василий','vasia','vasia@gmail.com','e10adc3949ba59abbe56e057f20f883e'),(4,'Тимофей','timoha','timoga@yandex.ru','e10adc3949ba59abbe56e057f20f883e');
 
 /*Table structure for table `user_to_role` */
 

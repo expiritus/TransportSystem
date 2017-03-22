@@ -8,25 +8,12 @@ import java.util.List;
 
 public class DaoTransport extends DaoAbstract<Transport> {
 
-    @Override
-    public int insert(Transport ob) throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public void update(Transport ob) throws SQLException {
-
-    }
 
     @Override
     public List<Transport> fillListEntity(ResultSet resultSet) throws SQLException {
         return null;
     }
 
-    @Override
-    public Transport findById(Transport ob) throws SQLException {
-        return null;
-    }
 
     @Override
     public Transport fillEntity(ResultSet resultSet) throws SQLException {

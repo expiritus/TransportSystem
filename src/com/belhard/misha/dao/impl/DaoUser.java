@@ -13,24 +13,6 @@ import java.util.List;
 
 public class DaoUser extends DaoAbstract<User> {
 
-    @Override
-    public int insert(User ob) throws SQLException {
-        try(Connection connection = ConnectDb.getInstance().getConnection()){
-            try(PreparedStatement prepared = connection.prepareStatement(
-                    "INSERT INTO " + ob.getClass().getSimpleName().toLowerCase() +
-                            " (name, login, email, password) " +
-                            " VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS
-            )){
-                prepared.setString(1, ob.getName());
-                prepared.setString(2, ob.getLogin());
-                prepared.setString(3, ob.getEmail());
-                prepared.setString(4, ob.getPassword());
-                prepared.execute();
-                return lastInsertedId(prepared);
-            }
-        }
-    }
-
     public void assignRoleUser(User ob) throws SQLException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
@@ -43,11 +25,6 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
-
-    @Override
-    public void update(User ob) throws SQLException {
-
-    }
 
     public User findByLoginAndPassword(User ob) throws SQLException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
@@ -116,8 +93,4 @@ public class DaoUser extends DaoAbstract<User> {
         return list;
     }
 
-    @Override
-    public User findById(User ob) throws SQLException {
-        return null;
-    }
 }

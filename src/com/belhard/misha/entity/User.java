@@ -1,5 +1,8 @@
 package com.belhard.misha.entity;
 
+import com.belhard.misha.CustomAnnotations.IgnoreForInsert;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,7 @@ public class User extends AbstractEntity implements Serializable {
     private String email;
     private String password;
 
+    @IgnoreForInsert
     private List<Role> roles;
 
     public User() {

@@ -9,15 +9,7 @@ import java.util.List;
 
 public class DaoCountry extends DaoAbstract<Country> {
 
-    @Override
-    public int insert(Country ob) throws SQLException {
-        return 0;
-    }
 
-    @Override
-    public void update(Country ob) throws SQLException {
-
-    }
 
     @Override
     public List<Country> fillListEntity(ResultSet resultSet) throws SQLException {
@@ -33,7 +25,12 @@ public class DaoCountry extends DaoAbstract<Country> {
 
     @Override
     public Country fillEntity(ResultSet resultSet) throws SQLException {
-        return null;
+        Country country = new Country();
+        while (resultSet.next()){
+            country.setId(resultSet.getInt("id"));
+            country.setCountry(resultSet.getString("country"));
+        }
+        return country;
     }
 
 

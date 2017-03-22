@@ -10,11 +10,11 @@ public interface DaoInterface<T> {
 
     void update(T ob) throws SQLException;
 
-    void delete(T ob) throws SQLException;
+    void delete(Class<T> c, int id) throws SQLException;
 
     List<T> findAll(Class<T> c) throws SQLException;
 
-    T findById(T ob) throws SQLException;
+    T findById(int id, Class<T> c) throws SQLException;
 
     List<T> fillListEntity(ResultSet resultSet) throws SQLException;
 

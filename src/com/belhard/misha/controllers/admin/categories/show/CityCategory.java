@@ -29,14 +29,12 @@ public class CityCategory extends HttpServlet {
 
         DaoCity daoCity = new DaoCity();
         DaoCountry daoCountry = new DaoCountry();
-        List<City> cities = null;
+        List<City> cities;
         try {
             cities = daoCity.findAll(City.class);
             for(City city : cities){
-                Country country = new Country();
-                country.setId(city.getCountryId());
-                daoCountry.findById(country);
-
+                Country country = daoCountry.findById(city.getCountryId(), Country.class);
+                city.setCountry(country);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Can not find countries", e);
