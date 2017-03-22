@@ -28,16 +28,16 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO ").append(ob.getClass().getSimpleName().toLowerCase()).append(" (");
-
+        StringBuilder values = new StringBuilder();
         for (Field field : clearEntityFields) {
             sql.append(field.getName()).append(",");
-
+            values.append("?,");
         }
         sql.setLength(sql.length() - 1);
+
         sql.append(") VALUES (");
-        for (int i = 0; i < clearEntityFields.size(); i++) {
-            sql.append("?,");
-        }
+        sql.append(values);
+
         sql.setLength(sql.length() - 1);
         sql.append(")");
 
