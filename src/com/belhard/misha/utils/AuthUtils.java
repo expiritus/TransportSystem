@@ -48,13 +48,13 @@ public final class AuthUtils {
                 return;
             }
         }
-        HttpUtils.redirect(resp, "index.html");
+        HttpUtils.redirect(resp, req.getContextPath() + "" + com.belhard.misha.controllers.main.IndexController.MAIN_URL);
         return;
     }
 
     public static boolean closeAccess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (HttpUtils.getSessionAttribute(req, "authUser") == null) {
-            HttpUtils.redirect(resp, req.getContextPath() + "/" + LoginController.URL);
+            HttpUtils.redirect(resp, req.getContextPath() + "" + LoginController.URL);
             return true;
         }
         return false;

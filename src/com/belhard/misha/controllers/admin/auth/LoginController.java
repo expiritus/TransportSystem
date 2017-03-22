@@ -19,7 +19,7 @@ import java.util.Properties;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-    public static final String URL = "login";
+    public static final String URL = "/login";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
         int countValidateFields = validateFields(req, login, password);
         if (countValidateFields < 2) {
             stateFull(req, login);
-            HttpUtils.redirect(resp, req.getContextPath() + "/" +LoginController.URL);
+            HttpUtils.redirect(resp, req.getContextPath() + "" + LoginController.URL);
             return;
         }
         password = StringUtils.MD5(password);

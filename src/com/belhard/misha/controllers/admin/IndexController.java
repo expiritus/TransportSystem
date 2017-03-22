@@ -34,6 +34,6 @@ public class IndexController extends HttpServlet {
             }
         }
 
-        HttpUtils.redirect(resp, "index.html");
+        HttpUtils.redirect(resp, req.getContextPath() + "" + com.belhard.misha.controllers.main.IndexController.MAIN_URL);
     }
 }
