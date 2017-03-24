@@ -28,7 +28,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         }
 
         StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO ").append(ob.getClass().getSimpleName().toLowerCase()).append(" (");
+        sql.append("INSERT INTO ").append(ob.getClass().getAnnotation(ClassMapping.class).name().toLowerCase()).append(" (");
         StringBuilder values = new StringBuilder();
         for (Field field : clearEntityFields) {
             String name = (field.getAnnotation(FieldMapping.class) != null &&
@@ -67,11 +67,9 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
     @Override
     public void delete(Class<T> c, int id) throws SQLException {
+        String sql = "DELETE FROM " + getTableName(c) + " WHERE id = ?";
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
-            try (PreparedStatement prepared = connection.prepareStatement(
-                    "DELETE FROM " + getTableName(c) +
-                            " WHERE id = ?"
-            )) {
+            try (PreparedStatement prepared = connection.prepareStatement(sql)) {
                 prepared.setInt(1, id);
                 prepared.execute();
             }
@@ -80,10 +78,9 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
     @Override
     public List<T> findAll(Class<T> c) throws SQLException {
+        String sql = "SELECT * FROM " + getTableName(c);
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
-            try (PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT * FROM " + getTableName(c)
-            )) {
+            try (PreparedStatement prepared = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = prepared.executeQuery()) {
                     return fillListEntity(resultSet);
                 }
@@ -94,12 +91,9 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
     @Override
     public T findById(Class<T> c, int id) throws SQLException {
-
+        String sql = "SELECT * FROM " + getTableName(c) + " WHERE id = ?";
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
-            try (PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT * FROM " + getTableName(c) +
-                            " WHERE id = ?"
-            )) {
+            try (PreparedStatement prepared = connection.prepareStatement(sql)) {
                 prepared.setInt(1, id);
                 try (ResultSet resultSet = prepared.executeQuery()) {
                     return fillEntity(resultSet);

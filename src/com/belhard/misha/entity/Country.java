@@ -1,12 +1,14 @@
 package com.belhard.misha.entity;
 
 import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
 
 @ClassMapping(name = "country")
 public class Country extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private String country;
@@ -31,7 +33,7 @@ public class Country extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CountryCategory{" +
+        return "ShowCountry{" +
                 "country='" + country + '\'' +
                 '}';
     }

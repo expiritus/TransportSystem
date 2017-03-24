@@ -14,17 +14,27 @@ import java.util.List;
 public class DaoUser extends DaoAbstract<User> {
 
     public void assignRoleUser(User ob) throws SQLException{
+        String sql = "INSERT INTO user_to_role (id_user, id_role) " +
+                        "VALUES (?, (SELECT id FROM role WHERE role='user'))";
         try(Connection connection = ConnectDb.getInstance().getConnection()){
-            try(PreparedStatement prepared = connection.prepareStatement(
-                    "INSERT INTO user_to_role (id_user, id_role) " +
-                            "VALUES (?, (SELECT id FROM role WHERE role='user'))"
-            )){
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
                 prepared.setInt(1, ob.getId());
                 prepared.execute();
             }
         }
     }
 
+    public void assignRolesUser(int idUser, int idRole) throws SQLException{
+        String sql = "INSERT INTO user_to_role (id_user, id_role) " +
+                        "VALUES (?, ?)";
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
+                prepared.setInt(1, idUser);
+                prepared.setInt(2, idRole);
+                prepared.execute();
+            }
+        }
+    }
 
     public User findByLoginAndPassword(User ob) throws SQLException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
@@ -41,7 +51,7 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
-    public User getRolesByUserId(User ob) throws SQLException{
+    public User fillRolesByUserId(User ob) throws SQLException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +

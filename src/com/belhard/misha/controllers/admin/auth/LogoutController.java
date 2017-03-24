@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
 
-    public static final String URL = "logout";
+    public static final String URL = "/logout";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

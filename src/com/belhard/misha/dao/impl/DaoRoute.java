@@ -15,17 +15,17 @@ public class DaoRoute extends DaoAbstract<Route> {
 
     @Override
     public List<Route> findAll(Class<Route> c) throws SQLException {
+        String sql = "SELECT r.id, type.type, tr.model, tr.capacity, tr.speed, " +
+                "fr.city AS city_from, too.city AS city_to, " +
+                "st.status, r.time_departure, r.arrival_time " +
+                "FROM " + getTableName(c) + " r " +
+                "JOIN transport tr ON r.transport_id = tr.id " +
+                "JOIN transport_type type ON tr.transport_type_id = type.id " +
+                "JOIN city fr ON r.`from` = fr.id " +
+                "JOIN city too ON r.`to` = too.id " +
+                "JOIN status st ON r.status_id = st.id";
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
-            try (PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT r.id, type.type, tr.model, tr.capacity, tr.speed, fr.city AS city_from, too.city AS city_to, " +
-                            "st.status, r.time_departure, r.arrival_time " +
-                            "FROM " + getTableName(c) + " r " +
-                            "JOIN transport tr ON r.transport_id = tr.id " +
-                            "JOIN transport_type type ON tr.transport_type_id = type.id " +
-                            "JOIN city fr ON r.`from` = fr.id " +
-                            "JOIN city too ON r.`to` = too.id " +
-                            "JOIN status st ON r.status_id = st.id"
-            )) {
+            try (PreparedStatement prepared = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = prepared.executeQuery()) {
                     return fillListEntity(resultSet);
                 }

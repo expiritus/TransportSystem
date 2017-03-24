@@ -3,12 +3,14 @@ package com.belhard.misha.entity;
 
 import com.belhard.misha.customAnnotations.ClassMapping;
 import com.belhard.misha.customAnnotations.FieldMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
 
 @ClassMapping(name = "city")
 public class City extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
     private String city;
@@ -16,6 +18,7 @@ public class City extends AbstractEntity implements Serializable {
     @FieldMapping(name = "country_id")
     private int countryId;
 
+    @IgnoreForInsert
     private Country country;
 
     public City() {
@@ -42,7 +45,7 @@ public class City extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CityCategory{" +
+        return "ShowCity{" +
                 "city='" + city + '\'' +
                 ", countryId=" + countryId +
                 '}';

@@ -16,12 +16,11 @@ public class DaoTransport extends DaoAbstract<Transport> {
 
     @Override
     public List<Transport> findAll(Class<Transport> c) throws SQLException {
+        String sql = "SELECT t.id, t.transport_type_id, t.model, t.capacity, t.speed, type.type " +
+                        " FROM " + getTableName(c) + " t" +
+                            " JOIN transport_type type ON t.transport_type_id = type.id";
         try(Connection connection = ConnectDb.getInstance().getConnection()){
-            try(PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT t.id, t.transport_type_id, t.model, t.capacity, t.speed, type.type " +
-                            " FROM " + getTableName(c) + " t" +
-                            " JOIN transport_type type ON t.transport_type_id = type.id"
-            )){
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
                 try(ResultSet resultSet = prepared.executeQuery()){
                     return fillListEntity(resultSet);
                 }

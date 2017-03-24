@@ -18,7 +18,9 @@ import java.util.List;
 
 
 @WebServlet("/admin/transport")
-public class TransportCategory extends HttpServlet {
+public class ShowTransport extends HttpServlet {
+
+    public static final String URL = "/admin/transport";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,13 +32,18 @@ public class TransportCategory extends HttpServlet {
 
         DaoTransport daoTransport = new DaoTransport();
         List<Transport> transports = null;
+
+        DaoTransportType daoTransportType = new DaoTransportType();
+        List<TransportType> transportTypes = null;
         try {
             transports = daoTransport.findAll(Transport.class);
+            transportTypes = daoTransportType.findAll(TransportType.class);
         } catch (SQLException e) {
             throw new RuntimeException("Can not find transports", e);
         }
 
         req.setAttribute("transports", transports);
-        HttpUtils.forward(req, resp, "TransportCategory", "/WEB-INF/pages/admin/categories/show/transport.jsp");
+        req.setAttribute("transportTypes", transportTypes);
+        HttpUtils.forward(req, resp, "ShowTransport", "/WEB-INF/pages/admin/categories/show/transport.jsp");
     }
 }

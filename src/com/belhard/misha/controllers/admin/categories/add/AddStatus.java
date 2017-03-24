@@ -1,5 +1,4 @@
-package com.belhard.misha.controllers.admin.categories.show;
-
+package com.belhard.misha.controllers.admin.categories.add;
 
 import com.belhard.misha.dao.impl.DaoStatus;
 import com.belhard.misha.entity.Status;
@@ -13,28 +12,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
-@WebServlet("/admin/status")
-public class StatusCategory extends HttpServlet {
+@WebServlet("/admin/status/add")
+public class AddStatus extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
         if(AuthUtils.closeAccess(req, resp)){
             return;
         }
 
+        String statusParam = req.getParameter("status");
+
         DaoStatus daoStatus = new DaoStatus();
-        List<Status> statuses = null;
+        Status status = new Status();
+        status.setStatus(statusParam);
         try {
-            statuses = daoStatus.findAll(Status.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find statuses");
+            daoStatus.insert(status);
+        } catch (SQLException | IllegalAccessException e) {
+            throw new RuntimeException("Can not insert status", e);
         }
 
-        req.setAttribute("statuses", statuses);
-        HttpUtils.forward(req, resp, "Statuses", "/WEB-INF/pages/admin/categories/show/status.jsp");
+        HttpUtils.referer(req, resp);
+
     }
 }

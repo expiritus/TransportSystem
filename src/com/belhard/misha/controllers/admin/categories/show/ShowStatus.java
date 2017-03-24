@@ -1,8 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
 
-import com.belhard.misha.dao.impl.DaoTransportType;
-import com.belhard.misha.entity.TransportType;
+import com.belhard.misha.dao.impl.DaoStatus;
+import com.belhard.misha.entity.Status;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/admin/transport-type")
-public class TransportTypeCategory extends HttpServlet{
+@WebServlet("/admin/status")
+public class ShowStatus extends HttpServlet {
+
+    public static final String URL = "/admin/status";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,15 +28,15 @@ public class TransportTypeCategory extends HttpServlet{
             return;
         }
 
-        DaoTransportType daoTransportType = new DaoTransportType();
-        List<TransportType> transportTypes = null;
+        DaoStatus daoStatus = new DaoStatus();
+        List<Status> statuses = null;
         try {
-            transportTypes = daoTransportType.findAll(TransportType.class);
+            statuses = daoStatus.findAll(Status.class);
         } catch (SQLException e) {
-            throw new RuntimeException("Can not find transport types", e);
+            throw new RuntimeException("Can not find statuses");
         }
 
-        req.setAttribute("transportTypes", transportTypes);
-        HttpUtils.forward(req, resp, "Transport type", "/WEB-INF/pages/admin/categories/show/transport-type.jsp");
+        req.setAttribute("statuses", statuses);
+        HttpUtils.forward(req, resp, "Statuses", "/WEB-INF/pages/admin/categories/show/status.jsp");
     }
 }

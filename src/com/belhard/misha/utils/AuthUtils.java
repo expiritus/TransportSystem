@@ -32,7 +32,7 @@ public final class AuthUtils {
         HttpUtils.invalidateSessionByAttribute(req, login);
         DaoUser daoUser = new DaoUser();
         try {
-            user = daoUser.getRolesByUserId(user);
+            user = daoUser.fillRolesByUserId(user);
             HttpUtils.setSessionAttribute(req, "authUser", user);
             checkAndProvideUserByRole(req, resp, user);
         } catch (SQLException e) {

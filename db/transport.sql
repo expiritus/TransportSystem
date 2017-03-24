@@ -101,7 +101,7 @@ CREATE TABLE `status` (
 
 /*Data for the table `status` */
 
-insert  into `status`(`id`,`status`) values (1,'Свободен'),(2,'В пути'),(3,'Прибыл');
+insert  into `status`(`id`,`status`) values (1,'Свободен'),(2, 'Готовится'), (3,'В пути'),(4,'Прибыл');
 
 /*Table structure for table `ticket` */
 

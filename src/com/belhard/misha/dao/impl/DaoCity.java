@@ -16,12 +16,10 @@ public class DaoCity extends DaoAbstract<City> {
 
     @Override
     public List<City> findAll(Class<City> c) throws SQLException {
+        String sql = "SELECT ci.id, ci.city, ci.country_id, k.country FROM " + getTableName(c) + " ci" +
+                        " JOIN country k  ON ci.country_id = k.id ";
         try(Connection connection = ConnectDb.getInstance().getConnection()){
-            try(PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT ci.id, ci.city, ci.country_id, k.country FROM " + getTableName(c) + " ci" +
-                            " JOIN country k  ON ci.country_id = k.id "
-
-            )){
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
                 try(ResultSet resultSet = prepared.executeQuery()){
                     return fillListEntity(resultSet);
                 }
@@ -51,6 +49,9 @@ public class DaoCity extends DaoAbstract<City> {
         City city = null;
         if (resultSet.next()) {
             city = new City();
+            city.setId(resultSet.getInt("id"));
+            city.setCity(resultSet.getString("city"));
+            city.setCountryId(resultSet.getInt("country_id"));
             Country country = new Country();
             country.setCountry(resultSet.getString("country"));
             city.setCountry(country);

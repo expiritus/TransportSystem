@@ -1,7 +1,7 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
-import com.belhard.misha.dao.impl.DaoRoute;
-import com.belhard.misha.entity.Route;
+import com.belhard.misha.dao.impl.DaoTicket;
+import com.belhard.misha.entity.Ticket;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -15,8 +15,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-@WebServlet("/admin/route")
-public class RouteCategory extends HttpServlet {
+@WebServlet("/admin/ticket")
+public class ShowTicket extends HttpServlet {
+
+    public static final String URL = "/admin/ticket";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,15 +28,15 @@ public class RouteCategory extends HttpServlet {
             return;
         }
 
-        DaoRoute daoRoute = new DaoRoute();
-        List<Route> routes = null;
+        DaoTicket daoTicket = new DaoTicket();
+        List<Ticket> tickets = null;
         try {
-            routes = daoRoute.findAll(Route.class);
+            tickets = daoTicket.findAll(Ticket.class);
         } catch (SQLException e) {
-            throw new RuntimeException("Can not find routes", e);
+            throw new RuntimeException("Can not find tickets", e);
         }
 
-        req.setAttribute("routes", routes);
-        HttpUtils.forward(req, resp, "Routes", "/WEB-INF/pages/admin/categories/show/route.jsp");
+        req.setAttribute("tickets", tickets);
+        HttpUtils.forward(req, resp, "Tickets", "/WEB-INF/pages/admin/categories/show/ticket.jsp");
     }
 }

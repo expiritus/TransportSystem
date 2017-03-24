@@ -2,6 +2,7 @@ package com.belhard.misha.controllers.admin.auth;
 
 
 import com.belhard.misha.dao.impl.DaoUser;
+import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
@@ -16,12 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 @WebServlet("/registration")
 public class RegistrationController extends HttpServlet {
 
-    public static final String URL = "registration";
+    public static final String URL = "/registration";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +59,15 @@ public class RegistrationController extends HttpServlet {
         try {
             int idUser = daoUser.insert(user);
             user.setId(idUser);
+            String ref = req.getHeader("referer");
+            if(ref.contains("/admin")){
+                String[] rolesParam = req.getParameterValues("roles");
+                for(String idRole : rolesParam){
+                    daoUser.assignRolesUser(idUser, Integer.parseInt(idRole));
+                }
+                HttpUtils.referer(req, resp);
+                return;
+            }
             daoUser.assignRoleUser(user);
             AuthUtils.authUser(req, resp, user, user.getLogin());
         } catch (SQLException e) {

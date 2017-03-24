@@ -1,8 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
 
-import com.belhard.misha.dao.impl.DaoCountry;
-import com.belhard.misha.entity.Country;
+import com.belhard.misha.dao.impl.DaoRole;
+import com.belhard.misha.entity.Role;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -15,29 +15,29 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+@WebServlet("/admin/role")
+public class ShowRole extends HttpServlet {
 
-@WebServlet("/admin/country")
-public class CountryCategory extends HttpServlet {
-
+    public static final String URL = "/admin/role";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if (AuthUtils.closeAccess(req, resp)) {
+        if(AuthUtils.closeAccess(req, resp)){
             return;
         }
 
-        DaoCountry daoCountry = new DaoCountry();
-        List<Country> countries = null;
+        DaoRole daoRole = new DaoRole();
+        List<Role> roles = null;
         try {
-            countries = daoCountry.findAll(Country.class);
+            roles = daoRole.findAll(Role.class);
         } catch (SQLException e) {
-            throw new RuntimeException("Can not find countries", e);
+            throw new RuntimeException("Can not find roles", e);
         }
 
-        req.setAttribute("countries", countries);
-        HttpUtils.forward(req, resp, "Countries", "/WEB-INF/pages/admin/categories/show/country.jsp");
-    }
+        req.setAttribute("roles", roles);
+        HttpUtils.forward(req, resp, "Roles", "/WEB-INF/pages/admin/categories/show/role.jsp");
 
+    }
 }

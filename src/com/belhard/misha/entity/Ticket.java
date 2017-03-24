@@ -1,6 +1,7 @@
 package com.belhard.misha.entity;
 
 import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
 
@@ -16,6 +17,13 @@ public class Ticket extends AbstractEntity implements Serializable {
     private String dateReservation;
     private boolean payStatus;
     private String datePay;
+
+    @IgnoreForInsert
+    private User user;
+
+    @IgnoreForInsert
+    private Route route;
+
 
     public Ticket() {
     }
@@ -105,5 +113,21 @@ public class Ticket extends AbstractEntity implements Serializable {
 
     public void setDatePay(String datePay) {
         this.datePay = datePay;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 }
