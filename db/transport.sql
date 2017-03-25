@@ -2,8 +2,7 @@
 SQLyog Ultimate v11.24 (64 bit)
 MySQL - 5.7.17-0ubuntu0.16.04.1 : Database - transport
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -83,7 +82,7 @@ CREATE TABLE `route` (
   CONSTRAINT `route_ibfk_2` FOREIGN KEY (`from`) REFERENCES `city` (`id`),
   CONSTRAINT `route_ibfk_3` FOREIGN KEY (`to`) REFERENCES `city` (`id`),
   CONSTRAINT `route_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `route` */
 
@@ -97,11 +96,11 @@ CREATE TABLE `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `status` */
 
-insert  into `status`(`id`,`status`) values (1,'Свободен'),(2, 'Готовится'), (3,'В пути'),(4,'Прибыл');
+insert  into `status`(`id`,`status`) values (1,'Свободен'),(2,'Готовится'),(3,'В пути'),(4,'Прибыл');
 
 /*Table structure for table `ticket` */
 

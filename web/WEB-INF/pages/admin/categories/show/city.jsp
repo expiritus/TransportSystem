@@ -1,21 +1,21 @@
-<%@ page import="com.belhard.misha.entity.City" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.belhard.misha.entity.Country" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
+
 <form action="${pageContext.request.contextPath}/admin/city/add" method="post">
     <input type="text" name="city">
     <select name="country">
-        <% for(Country country : (List<Country>) request.getAttribute("countries")) { %>
-            <option value="<%=country.getId()%>"><%=country.getCountry()%></option>
-        <% } %>
+        <jsp:useBean id="countries" scope="request" type="java.util.List"/>
+        <c:forEach var="country" items="${countries}">
+            <option value="${country.id}">${country.country}</option>
+        </c:forEach>
     </select>
     <button type="submit" name="submitCity">Отправить</button>
 </form>
 
-
-<%for (City city : (List<City>) request.getAttribute("cities")) {%>
-<p><%=city.getId()%> <%=city.getCity()%> <%=city.getCountry().getCountry()%></p>
-<% } %>
+<jsp:useBean id="cities" scope="request" type="java.util.List"/>
+<c:forEach var="city" items="${cities}">
+    <p>${city.id} ${city.city} ${city.country.country}</p>
+</c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

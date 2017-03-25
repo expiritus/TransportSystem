@@ -1,15 +1,14 @@
-<%@ page import="com.belhard.misha.entity.Transport" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.belhard.misha.entity.TransportType" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
 <form action="${pageContext.request.contextPath}/admin/transport/add" method="post">
     <select name="transportType">
-        <% for (TransportType transportType : (List<TransportType>) request.getAttribute("transportTypes")) {%>
-        <option value="<%=transportType.getId()%>"><%=transportType.getType()%></option>
-        <% } %>
+        <jsp:useBean id="transportTypes" scope="request" type="java.util.List"/>
+        <c:forEach var="transportType" items="${transportTypes}">
+            <option value="${transportType.id}">${transportType.type}</option>
+        </c:forEach>
     </select>
     <input type="text" name="model" placeholder="Model">
     <input type="text" name="capacity" placeholder="Capacity">
@@ -17,8 +16,9 @@
     <button type="submit" name="transportSubmit">Отправить</button>
 </form>
 
-<% for(Transport transport : (List<Transport>) request.getAttribute("transports")) { %>
-    <p><%=transport.getId()%> <%=transport.getTransportType().getType()%> <%=transport.getModel()%> <%=transport.getCapacity()%> <%=transport.getSpeed()%></p>
-<% } %>
+<jsp:useBean id="transports" scope="request" type="java.util.List"/>
+<c:forEach var="transport" items="${transports}">
+    <p>${transport.id} ${transport.transportType.type} ${transport.model} ${transport.capacity} ${transport.speed}</p>
+</c:forEach>
 
-<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

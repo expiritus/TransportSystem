@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.belhard.misha.entity.Country" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -7,8 +8,10 @@
     <input type="text" name="country">
     <button type="submit">Отправить</button>
 </form>
-<%for (Country country : (List<Country>) request.getAttribute("countries")) {%>
-    <p><%=country.getId()%> <%=country.getCountry()%></p>
-<% } %>
+
+<jsp:useBean id="countries" scope="request" type="java.util.List" />
+<c:forEach var="country" items="${countries}">
+    <p>${country.id} ${country.country}</p>
+</c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

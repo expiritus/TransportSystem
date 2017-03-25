@@ -13,5 +13,5 @@
 
 
 <Context>
-    <ResourceLink name="jdbc/transport_db" global="jdbc/transport_db"/>
+    <ResourceLink name="jdbc/transport_db" global="jdbc/transport_db" type="javax.sql.DataSource" />
 </Context>

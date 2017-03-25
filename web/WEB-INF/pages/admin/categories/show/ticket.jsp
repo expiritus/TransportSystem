@@ -1,22 +1,22 @@
-<%@ page import="com.belhard.misha.entity.Ticket" %>
-<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
-<% for (Ticket ticket : (List<Ticket>) request.getAttribute("tickets")) {%>
+<jsp:useBean id="tickets" scope="request" type="java.util.List"/>
+<c:forEach var="ticket" items="${tickets}">
     <p>
-        <%=ticket.getId()%>
-        <%=ticket.getUser().getName()%>
-        <%=ticket.getRoute().getTransport().getTransportType().getType()%>
-        <%=ticket.getRoute().getTransport().getModel()%>
-        <%=ticket.getRoute().getTransport().getCapacity()%>
-        <%=ticket.getRoute().getFromCity().getCity()%>
-        <%=ticket.getRoute().getToCity().getCity()%>
-        <%=ticket.getRoute().getTimeDeparture()%>
-        <%=ticket.getRoute().getArrivalTime()%>
+            ${ticket.id}
+            ${ticket.user.name}
+            ${ticket.route.transport.transportType.type}
+            ${ticket.route.transport.model}
+            ${ticket.route.transport.capacity}
+            ${ticket.route.fromCity.city}
+            ${ticket.route.toCity.city}
+            ${ticket.route.timeDeparture}
+            ${ticket.route.arrivalTime}
     </p>
-<% } %>
+</c:forEach>
 
 
-<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

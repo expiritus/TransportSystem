@@ -35,7 +35,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
                     !field.getAnnotation(FieldMapping.class).name().isEmpty()) ?
                     field.getAnnotation(FieldMapping.class).name() :
                     field.getName();
-            sql.append(name).append(",");
+            sql.append("`").append(name).append("`").append(",");
             values.append("?,");
         }
         sql.setLength(sql.length() - 1);

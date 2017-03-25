@@ -1,6 +1,7 @@
 package com.belhard.misha.entity;
 
 import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.FieldMapping;
 import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
@@ -11,11 +12,18 @@ public class Route extends AbstractEntity implements Serializable{
     @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
+    @FieldMapping(name = "transport_id")
     private int transportId;
     private int from;
     private int to;
+
+    @FieldMapping(name = "status_id")
     private int statusId;
+
+    @FieldMapping(name = "time_departure")
     private String timeDeparture;
+
+    @FieldMapping(name = "arrival_time")
     private String arrivalTime;
 
     @IgnoreForInsert

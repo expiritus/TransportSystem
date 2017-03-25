@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.belhard.misha.entity.TransportType" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -8,8 +9,10 @@
     <input type="text" name="transportType" placeholder="Transport type">
     <button type="submit" name="submitTransportType">Отправить</button>
 </form>
-<% for(TransportType transportType : (List<TransportType>)request.getAttribute("transportTypes")) { %>
-    <p><%=transportType.getId()%> <%=transportType.getType()%></p>
-<% } %>
+
+<jsp:useBean id="transportTypes" scope="request" type="java.util.List" />
+<c:forEach var="transportType" items="${transportTypes}">
+    <p>${transportType.id} ${transportType.type}</p>
+</c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp" />

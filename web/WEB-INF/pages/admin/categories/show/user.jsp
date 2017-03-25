@@ -1,9 +1,7 @@
-<%@ page import="com.belhard.misha.entity.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.belhard.misha.entity.Role" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 <form action="${pageContext.request.contextPath}/registration" method="POST">
     <input type="text" name="name" placeholder="Имя" value="${sessionScope.name}">
     ${sessionScope.errorValidName}
@@ -17,24 +15,27 @@
     <input type="password" name="password" placeholder="Пароль" value="${sessionScope.password}">
     <input type="password" name="repeatPassword" placeholder="Повторить пароль" value="${sessionScope.repeatPassword}">
     ${sessionScope.errorMatchPassword}
-    <br />
-    <% for(Role role : (List<Role>) request.getAttribute("roles")){ %>
-        <%=role.getRole()%><input type="checkbox" name="roles" value="<%=role.getId()%>">
-    <% } %>
+    <br/>
+
+    <jsp:useBean id="roles" scope="request" type="java.util.List"/>
+    <c:forEach var="role" items="${roles}">
+        ${role.role} <input type="checkbox" name="roles" value="${role.id}">
+    </c:forEach>
 
     <button type="submit">Отправить</button>
 </form>
-<% for(User user : (List<User>)request.getAttribute("users")) {%>
+<jsp:useBean id="users" scope="request" type="java.util.List" />
+<c:forEach var="user" items="${users}">
     <p>
-        <%=user.getId()%>
-        <%=user.getName()%>
-        <%=user.getLogin()%>
-        <%=user.getEmail()%>
-        <%=user.getPassword()%>
-        <% for (Role role : user.getRoles()) {%>
-            <span><%=role.getRole()%> </span>
-        <% }%>
+        ${user.id}
+        ${user.name}
+        ${user.login}
+        ${user.email}
+        ${user.password}
+        <c:forEach var="role" items="${user.roles}">
+            <span>${role.role}</span>
+        </c:forEach>
     </p>
-<% } %>
+</c:forEach>
 
-<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp" />
+<jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>
