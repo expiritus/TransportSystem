@@ -12,6 +12,9 @@
 <jsp:useBean id="countries" scope="request" type="java.util.List" />
 <c:forEach var="country" items="${countries}">
     <p>${country.id} ${country.country}</p>
+    <form action="/admin/country/delete" method="post">
+        <button type="submit" name="countryId" value="${country.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

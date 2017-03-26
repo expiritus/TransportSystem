@@ -1,5 +1,6 @@
 package com.belhard.misha.controllers.admin.auth;
 
+import com.belhard.misha.dao.exceptions.DaoException;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
@@ -49,7 +50,7 @@ public class LoginController extends HttpServlet {
         try {
             user = daoUser.findByLoginAndPassword(user);
             AuthUtils.authUser(req, resp, user, login);
-        } catch (SQLException e) {
+        } catch (DaoException e) {
             HttpUtils.removeSession(req, "authUser");
         }
     }

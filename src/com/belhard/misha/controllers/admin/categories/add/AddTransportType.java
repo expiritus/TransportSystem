@@ -30,11 +30,7 @@ public class AddTransportType extends HttpServlet {
         DaoTransportType daoTransportType = new DaoTransportType();
         TransportType transportType = new TransportType();
         transportType.setType(transportTypeParam);
-        try {
-            daoTransportType.insert(transportType);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not insert transport type", e);
-        }
+        daoTransportType.insert(transportType);
 
         HttpUtils.referer(req, resp);
 

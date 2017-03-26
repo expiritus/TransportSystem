@@ -10,6 +10,9 @@
 <jsp:useBean id="statuses" scope="request" type="java.util.List"/>
 <c:forEach var="status" items="${statuses}">
     <p>${status.id} ${status.status}</p>
+    <form action="/admin/status/delete" method="post">
+        <button type="submit" name="statusId" value="${status.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

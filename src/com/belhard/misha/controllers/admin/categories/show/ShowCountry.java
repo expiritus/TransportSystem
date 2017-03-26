@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -31,11 +30,7 @@ public class ShowCountry extends HttpServlet {
 
         DaoCountry daoCountry = new DaoCountry();
         List<Country> countries = null;
-        try {
-            countries = daoCountry.findAll(Country.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find countries", e);
-        }
+        countries = daoCountry.findAll(Country.class);
 
         req.setAttribute("countries", countries);
         HttpUtils.forward(req, resp, "Countries", "/WEB-INF/pages/admin/categories/show/country.jsp");

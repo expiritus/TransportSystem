@@ -1,7 +1,7 @@
-package com.belhard.misha.controllers.admin.categories.add;
+package com.belhard.misha.controllers.admin.categories.delete;
 
-import com.belhard.misha.dao.impl.DaoCity;
-import com.belhard.misha.entity.City;
+import com.belhard.misha.dao.impl.DaoStatus;
+import com.belhard.misha.entity.Status;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 
-@WebServlet("/admin/city/add")
-public class AddCity extends HttpServlet {
+@WebServlet("/admin/status/delete")
+public class DeleteStatus extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,16 +24,10 @@ public class AddCity extends HttpServlet {
             return;
         }
 
-        String cityParam = req.getParameter("city");
-        int countryId = Integer.parseInt(req.getParameter("country"));
-
-        DaoCity daoCity = new DaoCity();
-        City city = new City();
-        city.setCity(cityParam);
-        city.setCountryId(countryId);
-        daoCity.insert(city);
+        int stausId = Integer.parseInt(req.getParameter("statusId"));
+        DaoStatus daoStatus = new DaoStatus();
+        daoStatus.delete(Status.class, stausId);
 
         HttpUtils.referer(req, resp);
-
     }
 }

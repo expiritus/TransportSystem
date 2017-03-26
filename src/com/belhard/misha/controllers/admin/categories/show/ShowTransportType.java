@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/transport-type")
-public class ShowTransportType extends HttpServlet{
+public class ShowTransportType extends HttpServlet {
 
     public static final String URL = "/admin/transport-type";
 
@@ -24,17 +23,13 @@ public class ShowTransportType extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if(AuthUtils.closeAccess(req, resp)){
+        if (AuthUtils.closeAccess(req, resp)) {
             return;
         }
 
         DaoTransportType daoTransportType = new DaoTransportType();
-        List<TransportType> transportTypes = null;
-        try {
-            transportTypes = daoTransportType.findAll(TransportType.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find transport types", e);
-        }
+
+        List<TransportType> transportTypes = daoTransportType.findAll(TransportType.class);
 
         req.setAttribute("transportTypes", transportTypes);
         HttpUtils.forward(req, resp, "Transport type", "/WEB-INF/pages/admin/categories/show/transport-type.jsp");

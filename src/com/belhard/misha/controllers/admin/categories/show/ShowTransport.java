@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -26,21 +25,16 @@ public class ShowTransport extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
 
-        if(AuthUtils.closeAccess(req, resp)){
+        if (AuthUtils.closeAccess(req, resp)) {
             return;
         }
 
         DaoTransport daoTransport = new DaoTransport();
-        List<Transport> transports = null;
 
         DaoTransportType daoTransportType = new DaoTransportType();
-        List<TransportType> transportTypes = null;
-        try {
-            transports = daoTransport.findAll(Transport.class);
-            transportTypes = daoTransportType.findAll(TransportType.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find transports", e);
-        }
+
+        List<Transport> transports = daoTransport.findAll(Transport.class);
+        List<TransportType> transportTypes = daoTransportType.findAll(TransportType.class);
 
         req.setAttribute("transports", transports);
         req.setAttribute("transportTypes", transportTypes);

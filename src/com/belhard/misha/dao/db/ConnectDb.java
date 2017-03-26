@@ -1,4 +1,4 @@
-package com.belhard.misha.db;
+package com.belhard.misha.dao.db;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,19 +26,13 @@ public class ShowUser extends HttpServlet {
         HttpUtils.setEncoding(req, resp);
 
         DaoUser daoUser = new DaoUser();
-        List<User> users = new ArrayList<>();
 
         DaoRole daoRole = new DaoRole();
-        List<Role> roles = new ArrayList<>();
-        try {
-            users = daoUser.findAll(User.class);
-            for(User user : users){
-                daoUser.fillRolesByUserId(user);
-            }
-            roles = daoRole.findAll(Role.class);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        List<User> users = daoUser.findAll(User.class);
+        for (User user : users) {
+            daoUser.fillRolesByUserId(user);
         }
+        List<Role> roles = daoRole.findAll(Role.class);
 
         req.setAttribute("users", users);
         req.setAttribute("roles", roles);

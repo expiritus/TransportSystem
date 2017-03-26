@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public final class AuthUtils {
@@ -31,20 +30,16 @@ public final class AuthUtils {
         HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
         HttpUtils.invalidateSessionByAttribute(req, login);
         DaoUser daoUser = new DaoUser();
-        try {
-            user = daoUser.fillRolesByUserId(user);
-            HttpUtils.setSessionAttribute(req, "authUser", user);
-            checkAndProvideUserByRole(req, resp, user);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not authorize user");
-        }
+        user = daoUser.fillRolesByUserId(user);
+        HttpUtils.setSessionAttribute(req, "authUser", user);
+        checkAndProvideUserByRole(req, resp, user);
 
     }
 
     public static void checkAndProvideUserByRole(HttpServletRequest req, HttpServletResponse resp, User user) throws ServletException, IOException {
         for (Role role : user.getRoles()) {
             if (role.getRole().equals("admin") || role.getRole().equals("manager")) {
-                HttpUtils.redirect(resp, req.getContextPath() + "/" + IndexController.URL);
+                HttpUtils.redirect(resp, req.getContextPath() + "" + IndexController.URL);
                 return;
             }
         }

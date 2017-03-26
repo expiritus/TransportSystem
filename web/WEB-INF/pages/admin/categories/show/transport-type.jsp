@@ -13,6 +13,9 @@
 <jsp:useBean id="transportTypes" scope="request" type="java.util.List" />
 <c:forEach var="transportType" items="${transportTypes}">
     <p>${transportType.id} ${transportType.type}</p>
+    <form action="/admin/transport-type/delete">
+        <button type="submit" name="transportTypeId" value="${transportType.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp" />

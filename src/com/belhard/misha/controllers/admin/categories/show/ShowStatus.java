@@ -29,12 +29,7 @@ public class ShowStatus extends HttpServlet {
         }
 
         DaoStatus daoStatus = new DaoStatus();
-        List<Status> statuses = null;
-        try {
-            statuses = daoStatus.findAll(Status.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find statuses");
-        }
+        List<Status> statuses = daoStatus.findAll(Status.class);
 
         req.setAttribute("statuses", statuses);
         HttpUtils.forward(req, resp, "Statuses", "/WEB-INF/pages/admin/categories/show/status.jsp");

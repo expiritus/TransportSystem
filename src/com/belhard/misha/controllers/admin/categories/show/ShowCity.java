@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/city")
@@ -30,19 +29,15 @@ public class ShowCity extends HttpServlet {
         }
 
         DaoCity daoCity = new DaoCity();
-        List<City> cities;
-
         DaoCountry daoCountry = new DaoCountry();
-        List<Country> countries;
-        try {
-            cities = daoCity.findAll(City.class);
-            countries = daoCountry.findAll(Country.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find countries", e);
-        }
+
+        List<City> cities = daoCity.findAll(City.class);
+        List<Country> countries = daoCountry.findAll(Country.class);
 
         req.setAttribute("cities", cities);
         req.setAttribute("countries", countries);
+
+
         HttpUtils.forward(req, resp, "Countries", "/WEB-INF/pages/admin/categories/show/city.jsp");
     }
 }

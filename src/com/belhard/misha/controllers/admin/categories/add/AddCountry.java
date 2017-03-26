@@ -29,11 +29,7 @@ public class AddCountry extends HttpServlet {
         DaoCountry daoCountry = new DaoCountry();
         Country country = new Country();
         country.setCountry(countryParam);
-        try {
-            daoCountry.insert(country);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not insert country", e);
-        }
+        daoCountry.insert(country);
 
         HttpUtils.referer(req, resp);
     }

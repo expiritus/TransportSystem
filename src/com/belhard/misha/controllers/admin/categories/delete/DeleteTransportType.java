@@ -1,7 +1,7 @@
-package com.belhard.misha.controllers.admin.categories.add;
+package com.belhard.misha.controllers.admin.categories.delete;
 
-import com.belhard.misha.dao.impl.DaoCity;
-import com.belhard.misha.entity.City;
+import com.belhard.misha.dao.impl.DaoTransportType;
+import com.belhard.misha.entity.TransportType;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 
-@WebServlet("/admin/city/add")
-public class AddCity extends HttpServlet {
+@WebServlet("/admin/transport-type/delete")
+public class DeleteTransportType extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,16 +24,11 @@ public class AddCity extends HttpServlet {
             return;
         }
 
-        String cityParam = req.getParameter("city");
-        int countryId = Integer.parseInt(req.getParameter("country"));
+        int transportTypeId = Integer.parseInt(req.getParameter("transportTypeId"));
 
-        DaoCity daoCity = new DaoCity();
-        City city = new City();
-        city.setCity(cityParam);
-        city.setCountryId(countryId);
-        daoCity.insert(city);
+        DaoTransportType daoTransportType = new DaoTransportType();
+        daoTransportType.delete(TransportType.class, transportTypeId);
 
         HttpUtils.referer(req, resp);
-
     }
 }

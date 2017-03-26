@@ -46,6 +46,9 @@
             ${route.timeDeparture}
             ${route.arrivalTime}
     </p>
+    <form action="/admin/route/delete" method="post">
+        <button type="submit" name="routeId" value="${route.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

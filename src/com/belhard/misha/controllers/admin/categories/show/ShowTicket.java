@@ -1,6 +1,7 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
 import com.belhard.misha.dao.impl.DaoTicket;
+import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.Ticket;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
@@ -29,12 +30,8 @@ public class ShowTicket extends HttpServlet {
         }
 
         DaoTicket daoTicket = new DaoTicket();
-        List<Ticket> tickets = null;
-        try {
-            tickets = daoTicket.findAll(Ticket.class);
-        } catch (SQLException e) {
-            throw new RuntimeException("Can not find tickets", e);
-        }
+
+        List<Ticket> tickets = daoTicket.findAll(Ticket.class);
 
         req.setAttribute("tickets", tickets);
         HttpUtils.forward(req, resp, "Tickets", "/WEB-INF/pages/admin/categories/show/ticket.jsp");

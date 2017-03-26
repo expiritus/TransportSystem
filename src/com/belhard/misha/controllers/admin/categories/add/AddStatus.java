@@ -29,11 +29,7 @@ public class AddStatus extends HttpServlet {
         DaoStatus daoStatus = new DaoStatus();
         Status status = new Status();
         status.setStatus(statusParam);
-        try {
-            daoStatus.insert(status);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not insert status", e);
-        }
+        daoStatus.insert(status);
 
         HttpUtils.referer(req, resp);
 

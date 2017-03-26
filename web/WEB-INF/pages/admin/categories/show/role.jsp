@@ -9,6 +9,9 @@
 <jsp:useBean id="roles" scope="request" type="java.util.List"/>
 <c:forEach var="role" items="${roles}">
     <p>${role.id} ${role.role}</p>
+    <form action="/admin/role/delete" method="post">
+        <button type="submit" name="roleId" value="${role.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

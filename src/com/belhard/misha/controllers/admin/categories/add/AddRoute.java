@@ -39,11 +39,7 @@ public class AddRoute extends HttpServlet {
         route.setStatusId(1);
         route.setTimeDeparture(timeDeparture);
         route.setArrivalTime(arrivalTime);
-        try {
-            daoRoute.insert(route);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not insert route", e);
-        }
+        daoRoute.insert(route);
 
         HttpUtils.referer(req, resp);
 

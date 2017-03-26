@@ -32,11 +32,7 @@ public class AddRole extends HttpServlet {
         DaoRole daoRole = new DaoRole();
         Role role = new Role();
         role.setRole(roleParam);
-        try {
-            daoRole.insert(role);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not insert role", e);
-        }
+        daoRole.insert(role);
 
         HttpUtils.referer(req, resp);
     }

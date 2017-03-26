@@ -36,11 +36,7 @@ public class AddTransport extends HttpServlet {
         transport.setModel(model);
         transport.setCapacity(capacity);
         transport.setSpeed(speed);
-        try {
-            daoTransport.insert(transport);
-        } catch (SQLException | IllegalAccessException e) {
-            throw new RuntimeException("Can not add transport", e);
-        }
+        daoTransport.insert(transport);
 
         HttpUtils.referer(req, resp);
     }

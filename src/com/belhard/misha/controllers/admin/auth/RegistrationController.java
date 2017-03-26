@@ -1,6 +1,7 @@
 package com.belhard.misha.controllers.admin.auth;
 
 
+import com.belhard.misha.dao.exceptions.DaoException;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
@@ -70,14 +71,12 @@ public class RegistrationController extends HttpServlet {
             }
             daoUser.assignRoleUser(user);
             AuthUtils.authUser(req, resp, user, user.getLogin());
-        } catch (SQLException e) {
+        } catch (DaoException e) {
             Properties properties = PropertyUtils.getProperties("/settings/error-valid.properties");
             String failSaveUser = properties.getProperty("failSaveUser");
             req.setAttribute("failSaveUser", failSaveUser);
             stateFull(req, name, login, email, password, repeatPassword);
             HttpUtils.forward(req, resp, "Fail save user", "/WEB-INF/pages/admin/auth/registration.jsp");
-        } catch (IllegalAccessException e){
-            throw new RuntimeException("Can not access to entity fields");
         }
 
     }

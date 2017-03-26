@@ -1,6 +1,7 @@
 package com.belhard.misha.dao.impl;
 
-import com.belhard.misha.db.ConnectDb;
+import com.belhard.misha.dao.db.ConnectDb;
+import com.belhard.misha.dao.exceptions.DaoException;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class DaoUser extends DaoAbstract<User> {
 
-    public void assignRoleUser(User ob) throws SQLException{
+    public void assignRoleUser(User ob) throws DaoException{
         String sql = "INSERT INTO user_to_role (id_user, id_role) " +
                         "VALUES (?, (SELECT id FROM role WHERE role='user'))";
         try(Connection connection = ConnectDb.getInstance().getConnection()){
@@ -21,10 +22,12 @@ public class DaoUser extends DaoAbstract<User> {
                 prepared.setInt(1, ob.getId());
                 prepared.execute();
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not assign role to user", e);
         }
     }
 
-    public void assignRolesUser(int idUser, int idRole) throws SQLException{
+    public void assignRolesUser(int idUser, int idRole) throws DaoException{
         String sql = "INSERT INTO user_to_role (id_user, id_role) " +
                         "VALUES (?, ?)";
         try(Connection connection = ConnectDb.getInstance().getConnection()){
@@ -33,10 +36,12 @@ public class DaoUser extends DaoAbstract<User> {
                 prepared.setInt(2, idRole);
                 prepared.execute();
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not assign roles to user", e);
         }
     }
 
-    public User findByLoginAndPassword(User ob) throws SQLException{
+    public User findByLoginAndPassword(User ob) throws DaoException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT * FROM " + ob.getClass().getSimpleName().toLowerCase() +
@@ -48,10 +53,12 @@ public class DaoUser extends DaoAbstract<User> {
                     return fillEntity(resultSet);
                 }
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not find user by login and password", e);
         }
     }
 
-    public User fillRolesByUserId(User ob) throws SQLException{
+    public User fillRolesByUserId(User ob) throws DaoException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +
@@ -63,42 +70,57 @@ public class DaoUser extends DaoAbstract<User> {
                     return ob;
                 }
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not find user by id", e);
         }
     }
 
-    private List<Role> fillRolesToUser(ResultSet resultSet) throws SQLException{
+    private List<Role> fillRolesToUser(ResultSet resultSet) throws DaoException{
         List<Role> roles = new ArrayList<>();
-        while (resultSet.next()){
-            Role role = new Role();
-            role.setRole(resultSet.getString("role"));
-            roles.add(role);
+        try {
+            while (resultSet.next()){
+                Role role = new Role();
+                role.setRole(resultSet.getString("role"));
+                roles.add(role);
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not fill roles to user", e);
         }
         return roles;
     }
 
     @Override
-    public List<User> fillListEntity(ResultSet resultSet) throws SQLException {
+    public List<User> fillListEntity(ResultSet resultSet) throws DaoException {
         List<User> list = new ArrayList<>();
-        while (resultSet.next()) {
-            User user = new User();
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setLogin(resultSet.getString("login"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPassword(resultSet.getString("password"));
-            list.add(user);
+        try {
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLogin(resultSet.getString("login"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                list.add(user);
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not fill list user entities", e);
         }
+
         return list;
     }
 
-    public User fillEntity(ResultSet resultSet) throws SQLException {
+    public User fillEntity(ResultSet resultSet) throws DaoException {
         User user = new User();
-        if (resultSet.next()) {
-            user.setId(resultSet.getInt("id"));
-            user.setName(resultSet.getString("name"));
-            user.setLogin(resultSet.getString("login"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPassword(resultSet.getString("password"));
+        try {
+            if (resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLogin(resultSet.getString("login"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not fill user entity", e);
         }
         return user;
     }

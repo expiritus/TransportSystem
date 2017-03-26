@@ -3,6 +3,7 @@
 
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
+
 <jsp:useBean id="tickets" scope="request" type="java.util.List"/>
 <c:forEach var="ticket" items="${tickets}">
     <p>
@@ -16,6 +17,9 @@
             ${ticket.route.timeDeparture}
             ${ticket.route.arrivalTime}
     </p>
+    <form action="/admin/ticket/delete" method="post">
+        <button type="submit" name="ticketId" value="${ticket.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 

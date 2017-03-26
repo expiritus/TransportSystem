@@ -4,7 +4,8 @@ import com.belhard.misha.customAnnotations.ClassMapping;
 import com.belhard.misha.customAnnotations.FieldMapping;
 import com.belhard.misha.customAnnotations.IgnoreForInsert;
 import com.belhard.misha.dao.DaoInterface;
-import com.belhard.misha.db.ConnectDb;
+import com.belhard.misha.dao.db.ConnectDb;
+import com.belhard.misha.dao.exceptions.DaoException;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
 
     @Override
-    public int insert(T ob) throws SQLException, IllegalAccessException {
+    public int insert(T ob) throws DaoException {
         Field[] fieldsReflect = ob.getClass().getDeclaredFields();
         List<Field> clearEntityFields = new ArrayList<>();
         for (Field field : fieldsReflect) {
@@ -50,34 +51,42 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
             try (PreparedStatement prepared = connection.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
                 for (int i = 0; i < clearEntityFields.size(); i++) {
                     clearEntityFields.get(i).setAccessible(true);
-                    prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
+                    try {
+                        prepared.setObject(i + 1, clearEntityFields.get(i).get(ob));
+                    } catch (IllegalAccessException e) {
+                        throw new DaoException("Can not get reflection field", e);
+                    }
                 }
 
                 prepared.execute();
                 return lastInsertedId(prepared);
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not insert object", e);
         }
     }
 
 
     @Override
-    public void update(T ob) throws SQLException {
+    public void update(T ob) throws DaoException {
 
     }
 
     @Override
-    public void delete(Class<T> c, int id) throws SQLException {
+    public void delete(Class<T> c, int id) throws DaoException {
         String sql = "DELETE FROM " + getTableName(c) + " WHERE id = ?";
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(sql)) {
                 prepared.setInt(1, id);
                 prepared.execute();
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not delete from " + getTableName(c) + " with id = " + id, e);
         }
     }
 
     @Override
-    public List<T> findAll(Class<T> c) throws SQLException {
+    public List<T> findAll(Class<T> c) throws DaoException {
         String sql = "SELECT * FROM " + getTableName(c);
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(sql)) {
@@ -85,12 +94,14 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
                     return fillListEntity(resultSet);
                 }
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not find " + getTableName(c), e);
         }
     }
 
 
     @Override
-    public T findById(Class<T> c, int id) throws SQLException {
+    public T findById(Class<T> c, int id) throws DaoException {
         String sql = "SELECT * FROM " + getTableName(c) + " WHERE id = ?";
         try (Connection connection = ConnectDb.getInstance().getConnection()) {
             try (PreparedStatement prepared = connection.prepareStatement(sql)) {
@@ -99,14 +110,20 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
                     return fillEntity(resultSet);
                 }
             }
+        }catch (SQLException e){
+            throw new DaoException("Can not find object in " + getTableName(c) + " with id = " + id, e);
         }
     }
 
-    public int lastInsertedId(PreparedStatement prepared) throws SQLException {
+    public int lastInsertedId(PreparedStatement prepared) throws DaoException {
         int lastInserted = 0;
-        ResultSet resultSet = prepared.getGeneratedKeys();
-        if (resultSet.next()) {
-            lastInserted = resultSet.getInt(1);
+        try {
+            ResultSet resultSet = prepared.getGeneratedKeys();
+            if (resultSet.next()) {
+                lastInserted = resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not get id last inserted object", e);
         }
         return lastInserted;
     }

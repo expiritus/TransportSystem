@@ -21,5 +21,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.32 (Ubuntu)" level="application_server_libraries" />
     <orderEntry type="library" name="commons-validator-1.6" level="project" />
+    <orderEntry type="library" name="jsp-api-2.0" level="project" />
   </component>
 </module>

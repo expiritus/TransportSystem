@@ -36,6 +36,9 @@
             <span>${role.role}</span>
         </c:forEach>
     </p>
+    <form action="/admin/user/delete" method="post">
+        <button type="submit" name="userId" value="${user.id}">Удалить</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>
