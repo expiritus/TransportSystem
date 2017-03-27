@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
 <c:set var="countryPath" value="<%=ShowCountry.URL%>" />
-<form action="${pageContext.request.contextPath}${path}" method="post">
+<form action="${pageContext.request.contextPath}${countryPath}" method="post">
     <input type="text" name="country" placeholder="Страна">
     <button type="submit" name="addCountry">Отправить</button>
 </form>

@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
 <c:set var="cityPath" value="<%=ShowCity.URL%>" />
-<form action="${pageContext.request.contextPath}${path}" method="post">
+<form action="${pageContext.request.contextPath}${cityPath}" method="post">
     <input type="text" name="city" placeholder="Город">
     <select name="country">
         <jsp:useBean id="countries" scope="request" type="java.util.List"/>
