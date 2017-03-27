@@ -40,4 +40,36 @@ public class ShowTransport extends HttpServlet {
         req.setAttribute("transportTypes", transportTypes);
         HttpUtils.forward(req, resp, "ShowTransport", "/WEB-INF/pages/admin/categories/show/transport.jsp");
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if(AuthUtils.closeAccess(req, resp)){
+            return;
+        }
+
+        String addTransport = req.getParameter("addTransport");
+        String deleteTransport = req.getParameter("deleteTransport");
+
+        DaoTransport daoTransport = new DaoTransport();
+        if(addTransport != null){
+            String model = req.getParameter("model");
+            int capacity = Integer.parseInt(req.getParameter("capacity"));
+            double speed = Double.parseDouble(req.getParameter("speed"));
+            int transportTypeId = Integer.parseInt(req.getParameter("transportType"));
+
+            Transport transport = new Transport();
+            transport.setTransportTypeId(transportTypeId);
+            transport.setModel(model);
+            transport.setCapacity(capacity);
+            transport.setSpeed(speed);
+            daoTransport.insert(transport);
+        }else if (deleteTransport != null){
+            int transportId = Integer.parseInt(req.getParameter("deleteTransport"));
+            daoTransport.delete(Transport.class, transportId);
+        }
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowTransport.URL);
+    }
 }

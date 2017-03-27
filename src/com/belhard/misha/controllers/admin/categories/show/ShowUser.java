@@ -4,6 +4,7 @@ import com.belhard.misha.dao.impl.DaoRole;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
+import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,5 +37,24 @@ public class ShowUser extends HttpServlet {
         req.setAttribute("users", users);
         req.setAttribute("roles", roles);
         HttpUtils.forward(req, resp, "Users", "/WEB-INF/pages/admin/categories/show/user.jsp");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if (AuthUtils.closeAccess(req, resp)) {
+            return;
+        }
+
+        String deleteUser = req.getParameter("deleteUser");
+
+        DaoUser daoUser = new DaoUser();
+        if (deleteUser != null) {
+            int userId = Integer.parseInt(req.getParameter("deleteUser"));
+            daoUser.delete(User.class, userId);
+        }
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowUser.URL);
     }
 }

@@ -365,6 +365,8 @@ id_role</ColNames>
       <RefSchemaName>transport</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="89" parent="18" name="user_to_role_ibfk_2">
       <ColNames>id_role</ColNames>

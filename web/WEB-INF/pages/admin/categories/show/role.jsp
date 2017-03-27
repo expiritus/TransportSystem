@@ -1,16 +1,19 @@
+<%@ page import="com.belhard.misha.controllers.admin.categories.show.ShowRoute" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
-<form action="${pageContext.request.contextPath}/admin/role/add" method="post">
+
+<c:set var="roulePath" value="<%=ShowRoute.URL%>" />
+<form action="${pageContext.request.contextPath}${roulePath}" method="post">
     <input type="text" name="role" placeholder="Role">
-    <button type="submit" name="submitRole">Отправить</button>
+    <button type="submit" name="addRole">Отправить</button>
 </form>
 
 <jsp:useBean id="roles" scope="request" type="java.util.List"/>
 <c:forEach var="role" items="${roles}">
     <p>${role.id} ${role.role}</p>
-    <form action="/admin/role/delete" method="post">
-        <button type="submit" name="roleId" value="${role.id}">Удалить</button>
+    <form action="${pageContext.request.contextPath}${roulePath}" method="post">
+        <button type="submit" name="deleteRole" value="${role.id}">Удалить</button>
     </form>
 </c:forEach>
 

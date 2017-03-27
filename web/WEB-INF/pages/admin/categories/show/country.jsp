@@ -1,19 +1,22 @@
+<%@ page import="com.belhard.misha.controllers.admin.categories.show.ShowCountry" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.belhard.misha.entity.Country" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
-<form action="${pageContext.request.contextPath}/admin/country/add" method="post">
-    <input type="text" name="country">
-    <button type="submit">Отправить</button>
+<c:set var="countryPath" value="<%=ShowCountry.URL%>" />
+<form action="${pageContext.request.contextPath}${path}" method="post">
+    <input type="text" name="country" placeholder="Страна">
+    <button type="submit" name="addCountry">Отправить</button>
 </form>
 
-<jsp:useBean id="countries" scope="request" type="java.util.List" />
+<jsp:useBean id="countries" scope="request" type="java.util.List"/>
 <c:forEach var="country" items="${countries}">
     <p>${country.id} ${country.country}</p>
-    <form action="/admin/country/delete" method="post">
-        <button type="submit" name="countryId" value="${country.id}">Удалить</button>
+    <form action="${pageContext.request.contextPath}${countryPath}" method="post">
+        <button type="submit" name="deleteCountry" value="${country.id}">Удалить</button>
+    </form>
+    <form action="${pageContext.request.contextPath}${countryPath}" method="post">
+        <button type="submit" name="updateCountry">Редактировать</button>
     </form>
 </c:forEach>
 

@@ -1,9 +1,12 @@
+<%@ page import="com.belhard.misha.controllers.admin.categories.show.ShowRoute" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
 
-<form action="${pageContext.request.contextPath}/admin/route/add" method="post">
+<c:set var="routePath" value="<%=ShowRoute.URL%>" />
+
+<form action="${pageContext.request.contextPath}${routePath}" method="post">
     <label for="transport">Транспорт</label>
     <select name="transport" id="transport">
         <jsp:useBean id="transports" scope="request" type="java.util.List" />
@@ -29,7 +32,7 @@
 
     <label for="arrivalTime">Время прибытия</label>
     <input type="datetime-local" id="arrivalTime" name="arrivalTime">
-    <button type="submit">Отправить</button>
+    <button type="submit" name="addRoute">Отправить</button>
 </form>
 
 <jsp:useBean id="routes" scope="request" type="java.util.List"/>
@@ -46,8 +49,8 @@
             ${route.timeDeparture}
             ${route.arrivalTime}
     </p>
-    <form action="/admin/route/delete" method="post">
-        <button type="submit" name="routeId" value="${route.id}">Удалить</button>
+    <form action="${pageContext.request.contextPath}${routePath}" method="post">
+        <button type="submit" name="deleteRoute" value="${route.id}">Удалить</button>
     </form>
 </c:forEach>
 

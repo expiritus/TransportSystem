@@ -27,7 +27,7 @@ CREATE TABLE `city` (
   PRIMARY KEY (`id`),
   KEY `country_id` (`country_id`),
   CONSTRAINT `city_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `city` */
 
@@ -41,7 +41,7 @@ CREATE TABLE `country` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `country` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `country` */
 
@@ -86,7 +86,7 @@ CREATE TABLE `route` (
 
 /*Data for the table `route` */
 
-insert  into `route`(`id`,`transport_id`,`from`,`to`,`status_id`,`time_departure`,`arrival_time`) values (1,1,2,4,1,'2017-03-30 22:54:53','2017-03-31 07:32:00'),(2,2,1,7,1,'2017-04-27 05:38:00','2017-04-27 09:32:00'),(3,3,3,8,1,'2017-05-05 00:00:00','2017-05-06 01:00:00'),(4,4,1,2,1,'2017-06-24 23:00:00','2017-06-25 09:12:00');
+insert  into `route`(`id`,`transport_id`,`from`,`to`,`status_id`,`time_departure`,`arrival_time`) values (1,1,2,4,1,'2017-03-30 22:54:53','2017-03-31 07:32:00'),(2,2,1,7,1,'2017-04-27 05:38:00','2017-04-27 09:32:00'),(3,3,3,8,1,'2017-05-05 00:00:00','2017-05-06 01:00:00');
 
 /*Table structure for table `status` */
 
@@ -96,7 +96,7 @@ CREATE TABLE `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `status` */
 
@@ -119,11 +119,11 @@ CREATE TABLE `ticket` (
   KEY `ticket_ibfk_2` (`route_id`),
   CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `ticket` */
 
-insert  into `ticket`(`id`,`user_id`,`route_id`,`reservation_status`,`date_reservation`,`pay_status`,`date_pay`) values (1,3,1,1,'2017-03-18 15:32:00',0,NULL),(2,4,4,1,'2017-03-29 12:30:30',0,NULL);
+insert  into `ticket`(`id`,`user_id`,`route_id`,`reservation_status`,`date_reservation`,`pay_status`,`date_pay`) values (3,3,3,1,'2017-03-27 23:04:49',0,NULL),(4,4,1,1,'2017-03-27 23:06:02',0,NULL);
 
 /*Table structure for table `transport` */
 
@@ -138,11 +138,11 @@ CREATE TABLE `transport` (
   PRIMARY KEY (`id`),
   KEY `transport_type_id` (`transport_type_id`),
   CONSTRAINT `transport_ibfk_1` FOREIGN KEY (`transport_type_id`) REFERENCES `transport_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `transport` */
 
-insert  into `transport`(`id`,`transport_type_id`,`model`,`capacity`,`speed`) values (1,1,'Боинг',258,'900'),(2,1,'Ил-96-30',262,'900'),(3,1,'Airbus A310',183,'858'),(4,2,'Электропоезд',350,'80'),(5,2,'Дизель',480,'90'),(6,2,'Паровоз',300,'70'),(7,3,'MERCEDES-BENZ 0305',35,'90'),(8,3,'MAN LION S COACH L R08\r\n',32,'90'),(9,4,'Грузопассажирское судно',380,'40');
+insert  into `transport`(`id`,`transport_type_id`,`model`,`capacity`,`speed`) values (1,1,'Боинг',258,'900'),(2,1,'Ил-96-30',262,'900'),(3,1,'Airbus A310',183,'858'),(4,2,'Электропоезд',350,'80'),(5,2,'Дизель',480,'90'),(6,2,'Паровоз',300,'70'),(12,1,'sdlkj',23,'23');
 
 /*Table structure for table `transport_type` */
 
@@ -152,11 +152,11 @@ CREATE TABLE `transport_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `transport_type` */
 
-insert  into `transport_type`(`id`,`type`) values (1,'Самолет'),(2,'Поезд'),(3,'Автобус'),(4,'Корабль');
+insert  into `transport_type`(`id`,`type`) values (1,'Самолет'),(2,'Поезд'),(4,'Корабль'),(5,'dskf');
 
 /*Table structure for table `user` */
 
@@ -187,7 +187,7 @@ CREATE TABLE `user_to_role` (
   `id_role` int(11) NOT NULL,
   PRIMARY KEY (`id_user`,`id_role`),
   KEY `user_to_role_ibfk_2` (`id_role`),
-  CONSTRAINT `user_to_role_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_to_role_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_to_role_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

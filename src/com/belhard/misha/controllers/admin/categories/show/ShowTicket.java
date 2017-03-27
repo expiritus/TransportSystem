@@ -36,4 +36,22 @@ public class ShowTicket extends HttpServlet {
         req.setAttribute("tickets", tickets);
         HttpUtils.forward(req, resp, "Tickets", "/WEB-INF/pages/admin/categories/show/ticket.jsp");
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if(AuthUtils.closeAccess(req, resp)){
+            return;
+        }
+
+        String deleteTicket = req.getParameter("deleteTicket");
+        if(deleteTicket != null){
+            int ticketId = Integer.parseInt(req.getParameter("deleteTicket"));
+            DaoTicket daoTicket = new DaoTicket();
+            daoTicket.delete(Ticket.class, ticketId);
+        }
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowTicket.URL);
+    }
 }

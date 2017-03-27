@@ -1,8 +1,13 @@
+<%@ page import="com.belhard.misha.controllers.admin.categories.show.ShowUser" %>
+<%@ page import="com.belhard.misha.controllers.admin.auth.RegistrationController" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/header.jsp"/>
-<form action="${pageContext.request.contextPath}/registration" method="POST">
+
+<c:set var="userPath" value="<%=ShowUser.URL%>" />
+<c:set var="registrationPath" value="<%=RegistrationController.URL%>" />
+<form action="${pageContext.request.contextPath}${registrationPath}" method="POST">
     <input type="text" name="name" placeholder="Имя" value="${sessionScope.name}">
     ${sessionScope.errorValidName}
 
@@ -22,7 +27,7 @@
         ${role.role} <input type="checkbox" name="roles" value="${role.id}">
     </c:forEach>
 
-    <button type="submit">Отправить</button>
+    <button type="submit" name="addUser">Отправить</button>
 </form>
 <jsp:useBean id="users" scope="request" type="java.util.List" />
 <c:forEach var="user" items="${users}">
@@ -36,8 +41,8 @@
             <span>${role.role}</span>
         </c:forEach>
     </p>
-    <form action="/admin/user/delete" method="post">
-        <button type="submit" name="userId" value="${user.id}">Удалить</button>
+    <form action="${pageContext.request.contextPath}${userPath}" method="post">
+        <button type="submit" name="deleteUser" value="${user.id}">Удалить</button>
     </form>
 </c:forEach>
 

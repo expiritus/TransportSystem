@@ -29,11 +29,35 @@ public class ShowCountry extends HttpServlet {
         }
 
         DaoCountry daoCountry = new DaoCountry();
-        List<Country> countries = null;
-        countries = daoCountry.findAll(Country.class);
+        List<Country> countries = daoCountry.findAll(Country.class);
 
         req.setAttribute("countries", countries);
         HttpUtils.forward(req, resp, "Countries", "/WEB-INF/pages/admin/categories/show/country.jsp");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if(AuthUtils.closeAccess(req, resp)){
+            return;
+        }
+
+        String countryParam = req.getParameter("country");
+        String addCountry = req.getParameter("addCountry");
+        String deleteCountry = req.getParameter("deleteCountry");
+
+        DaoCountry daoCountry = new DaoCountry();
+        Country country = new Country();
+        country.setCountry(countryParam);
+        if(addCountry != null){
+            daoCountry.insert(country);
+        }else if (deleteCountry != null){
+            int countryId = Integer.parseInt(deleteCountry);
+            daoCountry.delete(Country.class, countryId);
+        }
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowCountry.URL);
     }
 
 }

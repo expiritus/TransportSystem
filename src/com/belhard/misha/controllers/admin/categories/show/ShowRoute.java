@@ -44,4 +44,41 @@ public class ShowRoute extends HttpServlet {
         req.setAttribute("cities", cities);
         HttpUtils.forward(req, resp, "Routes", "/WEB-INF/pages/admin/categories/show/route.jsp");
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if(AuthUtils.closeAccess(req, resp)){
+            return;
+        }
+
+        String addRoute = req.getParameter("addRoute");
+        String deleteRoute = req.getParameter("deleteRoute");
+
+        DaoRoute daoRoute = new DaoRoute();
+        if(addRoute != null){
+            int transport = Integer.parseInt(req.getParameter("transport"));
+            int cityFrom = Integer.parseInt(req.getParameter("cityFrom"));
+            int cityTo = Integer.parseInt(req.getParameter("cityTo"));
+            String timeDeparture = req.getParameter("timeDeparture");
+            String arrivalTime = req.getParameter("arrivalTime");
+
+            Route route = new Route();
+            route.setTransportId(transport);
+            route.setFrom(cityFrom);
+            route.setTo(cityTo);
+            route.setStatusId(1);
+            route.setTimeDeparture(timeDeparture);
+            route.setArrivalTime(arrivalTime);
+            daoRoute.insert(route);
+        }else if(deleteRoute != null){
+            int routeId = Integer.parseInt(req.getParameter("deleteRoute"));
+            daoRoute.delete(Route.class, routeId);
+        }
+
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowRoute.URL);
+
+    }
 }

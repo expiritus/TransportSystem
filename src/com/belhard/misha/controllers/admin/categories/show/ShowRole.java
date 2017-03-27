@@ -34,4 +34,30 @@ public class ShowRole extends HttpServlet {
         HttpUtils.forward(req, resp, "Roles", "/WEB-INF/pages/admin/categories/show/role.jsp");
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpUtils.setEncoding(req, resp);
+
+        if (AuthUtils.closeAccess(req, resp)) {
+            return;
+        }
+
+        String addRole = req.getParameter("addRole");
+        String deleteRole = req.getParameter("deleteRole");
+
+        DaoRole daoRole = new DaoRole();
+
+        if(addRole != null){
+            String roleParam = req.getParameter("role");
+            Role role = new Role();
+            role.setRole(roleParam);
+            daoRole.insert(role);
+        }else if (deleteRole != null){
+            int roleId = Integer.parseInt(req.getParameter("deleteRole"));
+            daoRole.delete(Role.class, roleId);
+        }
+
+        HttpUtils.redirect(resp, req.getContextPath() + ShowRole.URL);
+    }
 }
