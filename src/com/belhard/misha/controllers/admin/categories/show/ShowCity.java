@@ -53,6 +53,7 @@ public class ShowCity extends HttpServlet {
 
         String addCity = req.getParameter("addCity");
         String deleteCity = req.getParameter("deleteCity");
+        String editCity  = req.getParameter("editCity");
 
         DaoCity daoCity = new DaoCity();
         if(addCity != null){
@@ -67,6 +68,8 @@ public class ShowCity extends HttpServlet {
         }else if (deleteCity != null){
             int cityId = Integer.parseInt(req.getParameter("deleteCity"));
             daoCity.delete(City.class, cityId);
+        }else if(editCity != null){
+            req.setAttribute("editCityId", editCity);
         }
 
         HttpUtils.redirect(resp, req.getContextPath() + ShowCity.URL);

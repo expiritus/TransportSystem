@@ -27,9 +27,10 @@ public class DaoCity extends DaoAbstract<City> {
 
             }
         }catch (SQLException e){
-            throw new DaoException("Cano not find objects from " + getTableName(c), e);
+            throw new DaoException("Can not find objects from " + getTableName(c), e);
         }
     }
+
 
     @Override
     public List<City> fillListEntity(ResultSet resultSet) throws DaoException {
@@ -51,6 +52,21 @@ public class DaoCity extends DaoAbstract<City> {
         return list;
     }
 
+    @Override
+    public City findById(Class<City> c, int id) throws DaoException {
+        String sql = "SELECT ci.id, ci.city, ci.country_id, k.country FROM " + getTableName(c) + " ci" +
+                " JOIN country k  ON ci.country_id = k.id " +
+                " WHERE ci.id = " + id;
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
+                try(ResultSet resultSet = prepared.executeQuery()){
+                    return fillEntity(resultSet);
+                }
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not find city by id = " + id);
+        }
+    }
 
     public City fillEntity(ResultSet resultSet) throws DaoException {
         City city = null;

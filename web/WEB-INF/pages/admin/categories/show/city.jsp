@@ -18,11 +18,13 @@
 <jsp:useBean id="cities" scope="request" type="java.util.List"/>
 <c:forEach var="city" items="${cities}">
     <p>${city.id} ${city.city} ${city.country.country}</p>
+
     <form action="${pageContext.request.contextPath}${cityPath}" method="post">
         <button type="submit" name="deleteCity" value="${city.id}">Удалить</button>
     </form>
-    <form action="${pageContext.request.contextPath}${cityPath}" method="post">
-        <button type="submit" name="updateCity" value="${city.id}">Редактировать</button>
+    <form action="${pageContext.request.contextPath}${cityPath}/edit" method="post">
+        <button type="submit" name="editCity" value="${city.id}">Редактировать</button>
+        <input type="hidden" name="country" value="${city.country.country}">
     </form>
 </c:forEach>
 
