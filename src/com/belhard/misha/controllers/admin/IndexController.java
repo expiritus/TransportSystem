@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.belhard.misha.controllers.main.IndexController.MAIN_URL;
+
 @WebServlet("/admin")
 public class IndexController extends HttpServlet {
 
@@ -34,6 +36,6 @@ public class IndexController extends HttpServlet {
             }
         }
 
-        HttpUtils.redirect(resp, req.getContextPath() + "" + com.belhard.misha.controllers.main.IndexController.MAIN_URL);
+        HttpUtils.redirect(resp, req.getContextPath() + MAIN_URL);
     }
 }

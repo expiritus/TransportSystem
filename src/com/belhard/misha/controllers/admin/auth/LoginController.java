@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @WebServlet("/login")
@@ -25,7 +27,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
-
         HttpUtils.forward(req, resp, "Login", "/WEB-INF/pages/admin/auth/login.jsp");
     }
 
@@ -35,10 +36,11 @@ public class LoginController extends HttpServlet {
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        int countValidateFields = validateFields(req, login, password);
-        if (countValidateFields < 2) {
+        Map<String, String> errorMap = validateFields(login, password);
+        if (errorMap.size() != 0) {
             stateFull(req, login);
-            HttpUtils.redirect(resp, req.getContextPath() + "" + LoginController.URL);
+            req.setAttribute("errorMap", errorMap);
+            HttpUtils.forward(req, resp, "Login", "/WEB-INF/pages/admin/auth/login.jsp");
             return;
         }
         password = StringUtils.MD5(password);
@@ -55,31 +57,25 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    private int validateFields(HttpServletRequest req, String login, String password) {
+    private Map<String, String> validateFields(String login, String password) {
         Properties properties = PropertyUtils.getProperties("/settings/error-valid.properties");
         String errorValidateLogin = properties.getProperty("errorValidateLogin");
         String errorValidatePassword = properties.getProperty("errorValidatePassword");
 
-        int countValidateFields = 0;
-        if (StringUtils.isEmpty(login) || StringUtils.isBlank(login)) {
-            HttpUtils.setSessionAttribute(req, "errorValidateLogin", errorValidateLogin);
-            HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
-        } else {
-            HttpUtils.invalidateSessionByAttribute(req, "errorValidateLogin");
-            countValidateFields++;
+        Map<String, String> errorMap = new HashMap<>();
+        if(StringUtils.isBlank(login) || StringUtils.isBlank(login)){
+            errorMap.put("errorValidateLogin", errorValidateLogin);
         }
 
-        if (StringUtils.isEmpty(password) || StringUtils.isBlank(password)) {
-            HttpUtils.setSessionAttribute(req, "errorValidatePassword", errorValidatePassword);
-            HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
-        } else {
-            HttpUtils.invalidateSessionByAttribute(req, "errorValidatePassword");
-            countValidateFields++;
+        if(StringUtils.isEmpty(password) || StringUtils.isBlank(password)){
+            errorMap.put("errorValidatePassword", errorValidatePassword);
         }
-        return countValidateFields;
+
+        return errorMap;
     }
 
     private void stateFull(HttpServletRequest req, String login){
         HttpUtils.setSessionAttribute(req, "login", login);
     }
+
 }

@@ -373,6 +373,8 @@ id_role</ColNames>
       <RefSchemaName>transport</RefSchemaName>
       <RefTableName>role</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>

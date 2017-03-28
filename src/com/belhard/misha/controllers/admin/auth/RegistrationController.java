@@ -3,7 +3,6 @@ package com.belhard.misha.controllers.admin.auth;
 
 import com.belhard.misha.dao.exceptions.DaoException;
 import com.belhard.misha.dao.impl.DaoUser;
-import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
@@ -17,11 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @WebServlet("/registration")
 public class RegistrationController extends HttpServlet {
@@ -31,8 +26,6 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpUtils.setEncoding(req, resp);
-
-
         HttpUtils.forward(req, resp, "Registration", "/WEB-INF/pages/admin/auth/registration.jsp");
     }
 
@@ -44,10 +37,12 @@ public class RegistrationController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String repeatPassword = req.getParameter("repeatPassword");
-        int countValidFields = validateRequiredFields(req, name, login, email, password, repeatPassword);
-        if(countValidFields < 4){
-            stateFull(req, name, login, email, password, repeatPassword);
-            HttpUtils.referer(req, resp);
+        Map<String, String> errorMap = validateRequiredFields(name, login, email, password, repeatPassword);
+        if(errorMap.size() != 0){
+            Map<String, String> stateFullMap =  stateFull(name, login, email, password, repeatPassword);
+            req.setAttribute("errorMap", errorMap);
+            req.setAttribute("stateFullMap", stateFullMap);
+            HttpUtils.forward(req, resp, "Registration", "/WEB-INF/pages/admin/auth/registration.jsp");
             return;
         }
 
@@ -75,21 +70,25 @@ public class RegistrationController extends HttpServlet {
             Properties properties = PropertyUtils.getProperties("/settings/error-valid.properties");
             String failSaveUser = properties.getProperty("failSaveUser");
             req.setAttribute("failSaveUser", failSaveUser);
-            stateFull(req, name, login, email, password, repeatPassword);
+            Map<String, String> stateFillMap = stateFull(name, login, email, password, repeatPassword);
+            req.setAttribute("stateFullMap", stateFillMap);
             HttpUtils.forward(req, resp, "Fail save user", "/WEB-INF/pages/admin/auth/registration.jsp");
         }
 
     }
 
-    private void stateFull(HttpServletRequest req, String name, String login, String email, String password, String repeatPassword){
-        HttpUtils.setSessionAttribute(req,"name", name);
-        HttpUtils.setSessionAttribute(req, "login", login);
-        HttpUtils.setSessionAttribute(req,"email", email);
-        HttpUtils.setSessionAttribute(req, "password", password);
-        HttpUtils.setSessionAttribute(req, "repeatPassword", repeatPassword);
+    private Map<String, String> stateFull(String name, String login, String email, String password, String repeatPassword){
+        Map<String, String> stateFull = new HashMap<>();
+        stateFull.put("name", name);
+        stateFull.put("login", login);
+        stateFull.put("email", email);
+        stateFull.put("password", password);
+        stateFull.put("repeatPassword", repeatPassword);
+        return stateFull;
     }
 
-    private int validateRequiredFields(HttpServletRequest req, String name, String login, String email, String password, String repeatPassword){
+
+    private Map<String, String> validateRequiredFields(String name, String login, String email, String password, String repeatPassword){
         Properties validSettings = PropertyUtils.getProperties("/settings/error-valid.properties");
         String errorValidName = validSettings.getProperty("errorValidName");
         String errorValidLogin = validSettings.getProperty("errorValidLogin");
@@ -97,55 +96,44 @@ public class RegistrationController extends HttpServlet {
         String errorEmptyEmail = validSettings.getProperty("errorEmptyEmail");
         String errorMatchPassword = validSettings.getProperty("errorMatchPassword");
         String errorLengthPassword = validSettings.getProperty("errorLengthPassword");
+        String errorValidatePassword = validSettings.getProperty("errorValidatePassword");
 
-        int countValidFields = 0;
-        if(StringUtils.isEmpty(name) || StringUtils.isBlank(name)){
-            HttpUtils.setSessionAttribute(req, "errorValidName", errorValidName);
-        }else {
-            HttpUtils.invalidateSessionByAttribute(req, "errorValidName");
-            countValidFields++;
+        Map<String, String> errorMap = new HashMap<>();
+        if(StringUtils.isEmpty(name) || StringUtils.isEmpty(name)){
+            errorMap.put("errorValidName", errorValidName);
         }
 
         if(StringUtils.isEmpty(login) || StringUtils.isBlank(login)){
-            HttpUtils.setSessionAttribute(req, "errorValidLogin", errorValidLogin);
-        }else {
-            HttpUtils.invalidateSessionByAttribute(req, "errorValidLogin");
-            countValidFields++;
+            errorMap.put("errorValidLogin", errorValidLogin);
         }
 
-        if(StringUtils.isBlank(email) || StringUtils.isBlank(email)){
-            HttpUtils.setSessionAttribute(req, "errorValidEmail", errorEmptyEmail);
+        if(StringUtils.isEmpty(email) || StringUtils.isBlank(email)){
+            errorMap.put("errorValidEmail", errorEmptyEmail);
         }else {
             if(!EmailValidator.getInstance().isValid(email)){
-                HttpUtils.setSessionAttribute(req, "errorValidEmail", errorValidEmail);
-            }else {
-                HttpUtils.invalidateSessionByAttribute(req, "errorValidEmail");
-                countValidFields++;
+                errorMap.put("errorValidEmail", errorValidEmail);
             }
         }
 
-
-        if(!password.equals(repeatPassword)){
-            HttpUtils.setSessionAttribute(req, "errorMatchPassword", errorMatchPassword);
-        }else {
-            char[] chars = errorLengthPassword.toCharArray();
-            int lengthPassword = 0;
-            for(char c : chars){
-                if(Character.isDigit(c)){
-                    lengthPassword = Character.getNumericValue(c);
+        if(StringUtils.isEmpty(password) || StringUtils.isBlank(password)){
+            errorMap.put("errorMatchPassword", errorValidatePassword);
+        }else{
+            if(!password.equals(repeatPassword)){
+                errorMap.put("errorMatchPassword", errorMatchPassword);
+            }else {
+                char[] chars = errorLengthPassword.toCharArray();
+                int lengthPassword = 0;
+                for(char c : chars){
+                    if(Character.isDigit(c)){
+                        lengthPassword = Character.getNumericValue(c);
+                    }
+                }
+                if(password.length() < lengthPassword){
+                    errorMap.put("errorMatchPassword", errorLengthPassword);
                 }
             }
-            if(password.length() < lengthPassword){
-                HttpUtils.setSessionAttribute(req, "errorMatchPassword", errorLengthPassword);
-            }else {
-                HttpUtils.invalidateSessionByAttribute(req, "errorMatchPassword");
-                countValidFields++;
-            }
         }
 
-        return countValidFields;
+        return errorMap;
     }
-
-
-
 }
