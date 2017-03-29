@@ -10,7 +10,7 @@ public interface DaoInterface<T> {
 
     int insert(T ob) throws SQLException, IllegalAccessException;
 
-    void update(T ob) throws DaoException;
+    void update(T ob, int id) throws DaoException;
 
     void delete(Class<T> c, int id) throws DaoException;
 

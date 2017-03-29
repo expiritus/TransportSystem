@@ -32,10 +32,7 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
         sql.append("INSERT INTO ").append(ob.getClass().getAnnotation(ClassMapping.class).name().toLowerCase()).append(" (");
         StringBuilder values = new StringBuilder();
         for (Field field : clearEntityFields) {
-            String name = (field.getAnnotation(FieldMapping.class) != null &&
-                    !field.getAnnotation(FieldMapping.class).name().isEmpty()) ?
-                    field.getAnnotation(FieldMapping.class).name() :
-                    field.getName();
+            String name = getFieldName(field);
             sql.append("`").append(name).append("`").append(",");
             values.append("?,");
         }
@@ -68,8 +65,40 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
 
 
     @Override
-    public void update(T ob) throws DaoException {
+    public void update(T ob, int id) throws DaoException {
+        Field[] fieldReflect = ob.getClass().getDeclaredFields();
+        List<Field> clearEntityFields = new ArrayList<>();
+        for(Field field : fieldReflect){
+            if(field.getAnnotation(IgnoreForInsert.class) == null){
+                clearEntityFields.add(field);
+            }
+        }
 
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE ").append(ob.getClass().getAnnotation(ClassMapping.class).name().toLowerCase()).append(" ");
+        sql.append("SET ");
+        for(Field field : clearEntityFields){
+            String name = getFieldName(field);
+            sql.append("`").append(name).append("`").append("=").append("?").append(",");
+        }
+        sql.setLength(sql.length() - 1);
+        sql.append(" ").append("WHERE id=").append(id);
+        try(Connection connection = ConnectDb.getInstance().getConnection()){
+            try(PreparedStatement prepared = connection.prepareStatement(sql.toString())){
+                for(int i = 0; i < clearEntityFields.size(); i++){
+                    clearEntityFields.get(i).setAccessible(true);
+                    try{
+                        prepared.setObject(i+1, clearEntityFields.get(i).get(ob));
+                    }catch (IllegalAccessException e){
+                        throw new DaoException("Can not get reflection field for update", e);
+                    }
+                }
+
+                prepared.executeUpdate();
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not update " + ob.getClass().getAnnotation(ClassMapping.class).name().toLowerCase());
+        }
     }
 
     @Override
@@ -133,5 +162,12 @@ public abstract class DaoAbstract<T> implements DaoInterface<T> {
                 !c.getAnnotation(ClassMapping.class).name().isEmpty()) ?
                 c.getAnnotation(ClassMapping.class).name() :
                 c.getName().toLowerCase();
+    }
+
+    protected String getFieldName(Field field){
+        return (field.getAnnotation(FieldMapping.class) != null &&
+                !field.getAnnotation(FieldMapping.class).name().isEmpty()) ?
+                field.getAnnotation(FieldMapping.class).name() :
+                field.getName();
     }
 }

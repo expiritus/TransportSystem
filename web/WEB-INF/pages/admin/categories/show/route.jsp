@@ -52,6 +52,9 @@
     <form action="${pageContext.request.contextPath}${routePath}" method="post">
         <button type="submit" name="deleteRoute" value="${route.id}">Удалить</button>
     </form>
+    <form action="${pageContext.request.contextPath}${routePath}/edit" method="post">
+        <button type="submit" name="editRoute" value="${route.id}">Редактировать</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

@@ -31,11 +31,12 @@ public class EditCity extends HttpServlet {
         }
 
         String editCity = req.getParameter("editCity");
+        String updateCity = req.getParameter("updateCity");
+        DaoCity daoCity = new DaoCity();
         if(editCity != null){
-            int editCityId = Integer.parseInt(req.getParameter("editCity"));
+            int editCityId = Integer.parseInt(editCity);
             String countryParam = req.getParameter("country");
 
-            DaoCity daoCity = new DaoCity();
             City city = daoCity.findById(City.class, editCityId);
 
             DaoCountry daoCountry = new DaoCountry();
@@ -46,6 +47,16 @@ public class EditCity extends HttpServlet {
             req.setAttribute("selected", countryParam);
             HttpUtils.forward(req, resp, "Edit city", "/WEB-INF/pages/admin/categories/edit/city.jsp");
             return;
+        }else if(updateCity != null){
+            String cityName = req.getParameter("city");
+            int cityId = Integer.parseInt(updateCity);
+            int countryId = Integer.parseInt(req.getParameter("country"));
+            City city = new City();
+            city.setId(cityId);
+            city.setCity(cityName);
+            city.setCountryId(countryId);
+            daoCity.update(city, cityId);
+
         }
 
         HttpUtils.redirect(resp, ShowCity.URL);

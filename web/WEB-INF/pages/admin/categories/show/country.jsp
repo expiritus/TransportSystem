@@ -15,8 +15,8 @@
     <form action="${pageContext.request.contextPath}${countryPath}" method="post">
         <button type="submit" name="deleteCountry" value="${country.id}">Удалить</button>
     </form>
-    <form action="${pageContext.request.contextPath}${countryPath}" method="post">
-        <button type="submit" name="updateCountry">Редактировать</button>
+    <form action="${pageContext.request.contextPath}${countryPath}/edit" method="post">
+        <button type="submit" name="editCountry" value="${country.id}">Редактировать</button>
     </form>
 </c:forEach>
 
