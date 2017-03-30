@@ -7,12 +7,13 @@
 <jsp:useBean id="transports" scope="request" type="java.util.List"/>
 <jsp:useBean id="selectedRoute" scope="request" type="com.belhard.misha.entity.Route" />
 <jsp:useBean id="cities" scope="request" type="java.util.List"/>
+<jsp:useBean id="statuses" scope="request" type="java.util.List" />
 
 <c:set var="routePath" value="<%=EditRoute.URL%>"/>
 
 <form action="${pageContext.request.contextPath}${routePath}" method="post">
     <label for="transport">Транспорт</label>
-    <select name="transport" id="transport">
+    <select name="transportId" id="transport">
         <c:forEach var="transport" items="${transports}">
             <c:choose>
                 <c:when test="${selectedRoute.transportId == transport.id}">
@@ -55,14 +56,25 @@
             </c:choose>
         </c:forEach>
     </select>
+    <label for="status">Статус</label>
+    <select name="statusId" id="status">
+        <c:forEach var="status" items="${statuses}">
+            <c:choose>
+                <c:when test="${selectedRoute.statusId == status.id}">
+                    <option selected value="${status.id}">${status.status}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="${status.id}">${status.status}</option>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </select>
     <label for="timeDeparture">Время отправки</label>
-    <input type="datetime-local" id="timeDeparture" name="timeDeparture" value="${selectedRoute.timeDeparture}">
+    <input type="text" id="timeDeparture" name="timeDeparture" value="${selectedRoute.timeDeparture}">
     <c:set var="dateDeparture" value="${selectedRoute.timeDeparture}" />
-    <%--<fmt:formatDate value="${dateDeparture}" var="parseEmpDate" pattern="yyyy-MM-dd" />--%>
-    <c:out value="${selectedRoute.timeDeparture}"/>
     <label for="arrivalTime">Время прибытия</label>
-    <input type="datetime-local" id="arrivalTime" name="arrivalTime" value="${selectedRoute.arrivalTime}">
-    <button type="submit" name="addRoute">Отправить</button>
+    <input type="text" id="arrivalTime" name="arrivalTime" value="${selectedRoute.arrivalTime}">
+    <button type="submit" name="updateRoute" value="${selectedRoute.id}">Отправить</button>
 </form>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

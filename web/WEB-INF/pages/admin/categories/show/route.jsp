@@ -6,17 +6,21 @@
 
 <c:set var="routePath" value="<%=ShowRoute.URL%>" />
 
+<jsp:useBean id="cities" scope="request" type="java.util.List" />
+<jsp:useBean id="transports" scope="request" type="java.util.List" />
+<jsp:useBean id="routes" scope="request" type="java.util.List"/>
+<jsp:useBean id="statuses" scope="request" type="java.util.List" />
+
 <form action="${pageContext.request.contextPath}${routePath}" method="post">
     <label for="transport">Транспорт</label>
     <select name="transport" id="transport">
-        <jsp:useBean id="transports" scope="request" type="java.util.List" />
         <c:forEach var="transport" items="${transports}">
             <option value="${transport.id}">${transport.transportType.type} ${transport.model} ${transport.capacity} мест</option>
         </c:forEach>
     </select>
     <label for="cityFrom">Откуда</label>
     <select name="cityFrom" id="cityFrom">
-        <jsp:useBean id="cities" scope="request" type="java.util.List" />
+
         <c:forEach var="city" items="${cities}">
             <option value="${city.id}">${city.city}</option>
         </c:forEach>
@@ -27,6 +31,12 @@
             <option value="${city.id}">${city.city}</option>
         </c:forEach>
     </select>
+    <label for="status">Статус</label>
+    <select name="statusId" id="status">
+        <c:forEach var="status" items="${statuses}">
+            <option value="${status.id}">${status.status}</option>
+        </c:forEach>
+    </select>
     <label for="timeDeparture">Время отправки</label>
     <input type="datetime-local" id="timeDeparture" name="timeDeparture">
 
@@ -35,7 +45,6 @@
     <button type="submit" name="addRoute">Отправить</button>
 </form>
 
-<jsp:useBean id="routes" scope="request" type="java.util.List"/>
 <c:forEach var="route" items="${routes}">
     <p>
             ${route.id}

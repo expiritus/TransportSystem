@@ -16,6 +16,9 @@
     <form action="${pageContext.request.contextPath}${statusPath}" method="post">
         <button type="submit" name="deleteStatus" value="${status.id}">Удалить</button>
     </form>
+    <form action="${pageContext.request.contextPath}${statusPath}/edit" method="post">
+        <button type="submit" name="editStatus" value="${status.id}">Редактировать</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>

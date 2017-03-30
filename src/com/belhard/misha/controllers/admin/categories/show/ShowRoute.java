@@ -2,9 +2,11 @@ package com.belhard.misha.controllers.admin.categories.show;
 
 import com.belhard.misha.dao.impl.DaoCity;
 import com.belhard.misha.dao.impl.DaoRoute;
+import com.belhard.misha.dao.impl.DaoStatus;
 import com.belhard.misha.dao.impl.DaoTransport;
 import com.belhard.misha.entity.City;
 import com.belhard.misha.entity.Route;
+import com.belhard.misha.entity.Status;
 import com.belhard.misha.entity.Transport;
 import com.belhard.misha.utils.AuthUtils;
 import com.belhard.misha.utils.HttpUtils;
@@ -34,14 +36,17 @@ public class ShowRoute extends HttpServlet {
         DaoRoute daoRoute = new DaoRoute();
         DaoTransport daoTransport = new DaoTransport();
         DaoCity daoCity = new DaoCity();
+        DaoStatus daoStatus = new DaoStatus();
 
         List<Route> routes = daoRoute.findAll(Route.class);
         List<Transport> transports = daoTransport.findAll(Transport.class);
         List<City> cities = daoCity.findAll(City.class);
+        List<Status> statuses = daoStatus.findAll(Status.class);
 
         req.setAttribute("routes", routes);
         req.setAttribute("transports", transports);
         req.setAttribute("cities", cities);
+        req.setAttribute("statuses", statuses);
         HttpUtils.forward(req, resp, "Routes", "/WEB-INF/pages/admin/categories/show/route.jsp");
     }
 
@@ -61,6 +66,7 @@ public class ShowRoute extends HttpServlet {
             int transport = Integer.parseInt(req.getParameter("transport"));
             int cityFrom = Integer.parseInt(req.getParameter("cityFrom"));
             int cityTo = Integer.parseInt(req.getParameter("cityTo"));
+            int statusId = Integer.parseInt(req.getParameter("statusId"));
             String timeDeparture = req.getParameter("timeDeparture");
             String arrivalTime = req.getParameter("arrivalTime");
 
@@ -68,7 +74,7 @@ public class ShowRoute extends HttpServlet {
             route.setTransportId(transport);
             route.setFrom(cityFrom);
             route.setTo(cityTo);
-            route.setStatusId(1);
+            route.setStatusId(statusId);
             route.setTimeDeparture(timeDeparture);
             route.setArrivalTime(arrivalTime);
             daoRoute.insert(route);

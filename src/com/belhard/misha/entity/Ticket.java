@@ -1,6 +1,7 @@
 package com.belhard.misha.entity;
 
 import com.belhard.misha.customAnnotations.ClassMapping;
+import com.belhard.misha.customAnnotations.FieldMapping;
 import com.belhard.misha.customAnnotations.IgnoreForInsert;
 
 import java.io.Serializable;
@@ -9,13 +10,25 @@ import java.io.Serializable;
 @ClassMapping(name = "ticket")
 public class Ticket extends AbstractEntity implements Serializable {
 
+    @IgnoreForInsert
     private static final long serialVersionUID = 1L;
 
+    @FieldMapping(name = "user_id")
     private int userId;
-    private int routId;
+
+    @FieldMapping(name = "route_id")
+    private int routeId;
+
+    @FieldMapping(name = "reservation_status")
     private boolean reservationStatus;
+
+    @FieldMapping(name = "date_reservation")
     private String dateReservation;
+
+    @FieldMapping(name = "pay_status")
     private boolean payStatus;
+
+    @FieldMapping(name = "date_pay")
     private String datePay;
 
     @IgnoreForInsert
@@ -36,7 +49,7 @@ public class Ticket extends AbstractEntity implements Serializable {
         Ticket ticket = (Ticket) o;
 
         if (userId != ticket.userId) return false;
-        if (routId != ticket.routId) return false;
+        if (routeId != ticket.routeId) return false;
         if (reservationStatus != ticket.reservationStatus) return false;
         if (payStatus != ticket.payStatus) return false;
         if (dateReservation != null ? !dateReservation.equals(ticket.dateReservation) : ticket.dateReservation != null)
@@ -47,7 +60,7 @@ public class Ticket extends AbstractEntity implements Serializable {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + routId;
+        result = 31 * result + routeId;
         result = 31 * result + (reservationStatus ? 1 : 0);
         result = 31 * result + (dateReservation != null ? dateReservation.hashCode() : 0);
         result = 31 * result + (payStatus ? 1 : 0);
@@ -59,7 +72,7 @@ public class Ticket extends AbstractEntity implements Serializable {
     public String toString() {
         return "Ticket{" +
                 "userId=" + userId +
-                ", routId=" + routId +
+                ", routeId=" + routeId +
                 ", reservationStatus=" + reservationStatus +
                 ", dateReservation='" + dateReservation + '\'' +
                 ", payStatus=" + payStatus +
@@ -75,12 +88,12 @@ public class Ticket extends AbstractEntity implements Serializable {
         this.userId = userId;
     }
 
-    public int getRoutId() {
-        return routId;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setRoutId(int routId) {
-        this.routId = routId;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public boolean isReservationStatus() {
