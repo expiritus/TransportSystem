@@ -61,7 +61,7 @@ public class DaoUser extends DaoAbstract<User> {
     public User fillRolesByUserId(User ob) throws DaoException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
-                    "SELECT role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +
+                    "SELECT id, role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +
                             " WHERE id_user = ?"
             )){
                 prepared.setInt(1, ob.getId());
@@ -79,7 +79,9 @@ public class DaoUser extends DaoAbstract<User> {
         List<Role> roles = new ArrayList<>();
         try {
             while (resultSet.next()){
-                Role role = new Role();
+                Role role;
+                role = new Role();
+                role.setId(resultSet.getInt("id"));
                 role.setRole(resultSet.getString("role"));
                 roles.add(role);
             }

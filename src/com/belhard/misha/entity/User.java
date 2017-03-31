@@ -50,7 +50,7 @@ public class User extends AbstractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "EditUser{" +
                 "name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +

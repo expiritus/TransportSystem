@@ -6,6 +6,28 @@
 
 <c:set var="ticketPath" value="<%=ShowTicket.URL%>"/>
 <jsp:useBean id="tickets" scope="request" type="java.util.List"/>
+<jsp:useBean id="users" scope="request" type="java.util.List" />
+<jsp:useBean id="routes" scope="request" type="java.util.List" />
+<form action="${pageContext.request.contextPath}${ticketPath}" method="post">
+    <select name="userId">
+        <c:forEach var="user" items="${users}">
+            <option value="${user.id}">${user.name}</option>
+        </c:forEach>
+    </select>
+    <select name="routeId">
+        <c:forEach var="route" items="${routes}">
+            <option selected value="${route.id}">${route.transport.transportType.type} ${route.transport.model} ${route.fromCity.city} ${route.toCity.city} ${route.timeDeparture} ${route.arrivalTime}</option>
+        </c:forEach>
+    </select>
+    Зарезервирован <input type="checkbox" name="reservationStatus">
+    Дата резервации <input type="datetime-local" name="dateReservation">
+    Оплачен <input type="checkbox" name="payStatus">
+    Дата оплаты <input type="datetime-local" name="datePay">
+    <button type="submit" name="addTicket">Отправить</button>
+</form>
+
+
+
 <c:forEach var="ticket" items="${tickets}">
     <p>
             ${ticket.id}

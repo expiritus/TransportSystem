@@ -16,6 +16,9 @@
     <form action="${pageContext.request.contextPath}${transportTypePath}" method="post">
         <button type="submit" name="deleteTransportType" value="${transportType.id}">Удалить</button>
     </form>
+    <form action="${pageContext.request.contextPath}${transportTypePath}/edit" method="post">
+        <button type="submit" name="editTransportType" value="${transportType.id}">Редактировать</button>
+    </form>
 </c:forEach>
 
 <jsp:include page="/WEB-INF/pages/admin/layout/footer.jsp"/>
