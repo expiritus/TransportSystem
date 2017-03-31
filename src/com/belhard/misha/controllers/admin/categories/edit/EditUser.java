@@ -38,7 +38,7 @@ public class EditUser extends HttpServlet {
         if(editUser != null){
             int userId = Integer.parseInt(editUser);
             User user = daoUser.findById(User.class, userId);
-            user = daoUser.fillRolesByUserId(user);
+            daoUser.fillRolesToUser(user);
             System.out.println(user);
             List<Role> roles = daoRole.findAll(Role.class);
 

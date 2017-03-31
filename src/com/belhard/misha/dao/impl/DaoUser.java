@@ -58,7 +58,7 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
-    public User fillRolesByUserId(User ob) throws DaoException{
+    public User fillRolesToUser(User ob) throws DaoException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(
                     "SELECT id, role FROM role JOIN user_to_role ON role.id = user_to_role.id_role" +
@@ -66,7 +66,7 @@ public class DaoUser extends DaoAbstract<User> {
             )){
                 prepared.setInt(1, ob.getId());
                 try(ResultSet resultSet = prepared.executeQuery()){
-                    ob.setRoles(fillRolesToUser(resultSet));
+                    ob.setRoles(fillListRoles(resultSet));
                     return ob;
                 }
             }
@@ -75,7 +75,7 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
-    private List<Role> fillRolesToUser(ResultSet resultSet) throws DaoException{
+    private List<Role> fillListRoles(ResultSet resultSet) throws DaoException{
         List<Role> roles = new ArrayList<>();
         try {
             while (resultSet.next()){

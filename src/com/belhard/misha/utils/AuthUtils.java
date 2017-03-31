@@ -30,7 +30,7 @@ public final class AuthUtils {
         HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
         HttpUtils.invalidateSessionByAttribute(req, login);
         DaoUser daoUser = new DaoUser();
-        user = daoUser.fillRolesByUserId(user);
+        user = daoUser.fillRolesToUser(user);
         HttpUtils.setSessionAttribute(req, "authUser", user);
         checkAndProvideUserByRole(req, resp, user);
 

@@ -8,21 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40312fb8-2588-4ce6-9173-7b908dfbc3b8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTransport.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTransportType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/transport-type.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/transport.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTicket.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTicket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/show/ShowTicket.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/show/ShowTicket.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/show/ShowUser.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/show/ShowUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/entity/User.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/entity/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/ticket.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/ticket.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/transport-type.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/transport-type.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/transport.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/transport.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/belhard/misha/utils/AuthUtils.java" afterPath="$PROJECT_DIR$/src/com/belhard/misha/utils/AuthUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -211,7 +202,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTransportType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="274">
-              <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
+              <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -227,11 +218,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="23" column="31" lean-forward="false" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+            <state relative-caret-position="320">
+              <caret line="16" column="56" lean-forward="true" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -240,8 +231,8 @@
       <file leaf-file-name="user.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="42" column="8" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+            <state relative-caret-position="0">
+              <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -250,28 +241,38 @@
       <file leaf-file-name="DaoUser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+            <state relative-caret-position="280">
+              <caret line="60" column="26" lean-forward="false" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditUser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RegistrationController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/RegistrationController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="55" column="44" lean-forward="false" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/utils/AuthUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditUser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="transport-type.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/transport-type.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="40" lean-forward="false" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
+            <state relative-caret-position="334">
+              <caret line="41" column="37" lean-forward="true" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -281,7 +282,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTicket.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="40" column="17" lean-forward="true" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
+              <caret line="40" column="17" lean-forward="false" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -340,7 +341,6 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/admin/auth/registration.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/admin/auth/login.jsp" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/LoginController.java" />
-        <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/RegistrationController.java" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/IndexController.java" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/show/ShowCity.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit.jsp" />
@@ -381,8 +381,9 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/User.java" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTicket.java" />
-        <option value="$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java" />
         <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java" />
+        <option value="$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java" />
+        <option value="$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/RegistrationController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp" />
       </list>
     </option>
@@ -845,6 +846,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="edit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TransportSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TransportSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="misha" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1472,7 +1503,7 @@
       <workItem from="1490724213660" duration="12027000" />
       <workItem from="1490811099956" duration="11574000" />
       <workItem from="1490895805017" duration="13098000" />
-      <workItem from="1490953456789" duration="11164000" />
+      <workItem from="1490953456789" duration="12965000" />
     </task>
     <task id="LOCAL-00001" summary="entity and dao">
       <created>1489787069369</created>
@@ -1712,11 +1743,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490908686535</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="update">
+      <created>1490965412609</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1490965412609</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228201000" />
+    <option name="totallyTimeSpent" value="230002000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -1776,7 +1814,8 @@
     <MESSAGE value="add route" />
     <MESSAGE value="delete" />
     <MESSAGE value="update route" />
-    <option name="LAST_COMMIT_MESSAGE" value="update route" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1830,23 +1869,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/RegistrationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1640">
-          <caret line="97" column="50" lean-forward="true" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoCountry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="34" column="18" lean-forward="false" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/entity/City.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -2196,7 +2218,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTicket.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="40" column="17" lean-forward="true" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
+          <caret line="40" column="17" lean-forward="false" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -2204,15 +2226,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditTransportType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
-          <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="42" column="8" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+          <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -2227,24 +2241,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/dao/impl/DaoUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+        <state relative-caret-position="280">
+          <caret line="60" column="26" lean-forward="false" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java">
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/show/user.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/utils/AuthUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/auth/RegistrationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="55" column="44" lean-forward="false" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/admin/categories/edit/user.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="23" column="31" lean-forward="false" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        <state relative-caret-position="320">
+          <caret line="16" column="56" lean-forward="true" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/belhard/misha/controllers/admin/categories/edit/EditUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="41" column="37" lean-forward="true" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
           <folding />
         </state>
       </provider>

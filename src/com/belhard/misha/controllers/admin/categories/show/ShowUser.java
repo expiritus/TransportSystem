@@ -30,7 +30,7 @@ public class ShowUser extends HttpServlet {
         DaoRole daoRole = new DaoRole();
         List<User> users = daoUser.findAll(User.class);
         for (User user : users) {
-            daoUser.fillRolesByUserId(user);
+            daoUser.fillRolesToUser(user);
         }
         List<Role> roles = daoRole.findAll(Role.class);
 
