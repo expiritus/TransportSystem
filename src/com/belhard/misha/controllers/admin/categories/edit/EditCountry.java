@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowCountry;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoCountry;
 import com.belhard.misha.entity.Country;
 import com.belhard.misha.utils.AuthUtils;
@@ -21,15 +23,10 @@ public class EditCountry extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
         String editCountry = req.getParameter("editCountry");
         String updateCountry = req.getParameter("updateCountry");
-        DaoCountry daoCountry = new DaoCountry();
+        DaoCountry daoCountry = (DaoCountry) DaoFactory.getDao(DaoTypes.Country);
         if(editCountry != null){
             int editCountryId = Integer.parseInt(editCountry);
             Country country = daoCountry.findById(Country.class, editCountryId);

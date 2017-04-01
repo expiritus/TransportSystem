@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.auth;
 
 import com.belhard.misha.dao.exceptions.DaoException;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -26,13 +27,12 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
+
         HttpUtils.forward(req, resp, "Login", "/WEB-INF/pages/admin/auth/login.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
             return;
         }
         password = StringUtils.MD5(password);
-        DaoUser daoUser = new DaoUser();
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
@@ -63,18 +63,18 @@ public class LoginController extends HttpServlet {
         String errorValidatePassword = properties.getProperty("errorValidatePassword");
 
         Map<String, String> errorMap = new HashMap<>();
-        if(StringUtils.isBlank(login) || StringUtils.isBlank(login)){
+        if (StringUtils.isBlank(login) || StringUtils.isBlank(login)) {
             errorMap.put("errorValidateLogin", errorValidateLogin);
         }
 
-        if(StringUtils.isEmpty(password) || StringUtils.isBlank(password)){
+        if (StringUtils.isEmpty(password) || StringUtils.isBlank(password)) {
             errorMap.put("errorValidatePassword", errorValidatePassword);
         }
 
         return errorMap;
     }
 
-    private void stateFull(HttpServletRequest req, String login){
+    private void stateFull(HttpServletRequest req, String login) {
         HttpUtils.setSessionAttribute(req, "login", login);
     }
 

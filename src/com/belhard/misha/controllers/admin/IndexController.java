@@ -22,11 +22,6 @@ public class IndexController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         User authUser = (User) HttpUtils.getSessionAttribute(req, "authUser");
         for (Role role : authUser.getRoles()) {

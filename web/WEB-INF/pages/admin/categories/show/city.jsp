@@ -19,6 +19,9 @@
 <c:forEach var="city" items="${cities}">
     <p>${city.id} ${city.city} ${city.country.country}</p>
 
+    <c:if test="${sessionScope.errorCityId == city.id}">
+        ${sessionScope.errorDeleteCity}
+    </c:if>
     <form action="${pageContext.request.contextPath}${cityPath}" method="post">
         <button type="submit" name="deleteCity" value="${city.id}">Удалить</button>
     </form>

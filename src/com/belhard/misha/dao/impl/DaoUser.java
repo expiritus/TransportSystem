@@ -41,6 +41,18 @@ public class DaoUser extends DaoAbstract<User> {
         }
     }
 
+
+    public void deleteRolesUser(int idUser) throws DaoException{
+        String sql = "DELETE FROM user_to_role WHERE id_user = " + idUser;
+        try(Connection connection = ConnectDb.getInstance().getConnection()) {
+            try(PreparedStatement prepared = connection.prepareStatement(sql)){
+                prepared.execute();
+            }
+        }catch (SQLException e){
+            throw new DaoException("Can not delete from user_to_role id_user " + idUser, e);
+        }
+    }
+
     public User findByLoginAndPassword(User ob) throws DaoException{
         try(Connection connection = ConnectDb.getInstance().getConnection()){
             try(PreparedStatement prepared = connection.prepareStatement(

@@ -12,6 +12,9 @@
 <jsp:useBean id="countries" scope="request" type="java.util.List"/>
 <c:forEach var="country" items="${countries}">
     <p>${country.id} ${country.country}</p>
+    <c:if test="${sessionScope.errorCountryId == country.id}">
+        ${sessionScope.errorDeleteCountry}
+    </c:if>
     <form action="${pageContext.request.contextPath}${countryPath}" method="post">
         <button type="submit" name="deleteCountry" value="${country.id}">Удалить</button>
     </form>

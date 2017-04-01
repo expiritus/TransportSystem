@@ -2,6 +2,8 @@ package com.belhard.misha.controllers.admin.auth;
 
 
 import com.belhard.misha.dao.exceptions.DaoException;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.User;
 import com.belhard.misha.utils.AuthUtils;
@@ -25,13 +27,13 @@ public class RegistrationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
+
         HttpUtils.forward(req, resp, "Registration", "/WEB-INF/pages/admin/auth/registration.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
+
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
@@ -46,7 +48,7 @@ public class RegistrationController extends HttpServlet {
             return;
         }
 
-        DaoUser daoUser = new DaoUser();
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
         User user = new User();
         user.setName(name);
         user.setLogin(login);

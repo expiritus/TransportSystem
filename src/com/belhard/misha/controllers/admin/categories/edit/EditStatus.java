@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowStatus;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoStatus;
 import com.belhard.misha.entity.Status;
 import com.belhard.misha.utils.AuthUtils;
@@ -22,16 +24,12 @@ public class EditStatus extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
 
         String editStatus = req.getParameter("editStatus");
         String updateStatus = req.getParameter("updateStatus");
-        DaoStatus daoStatus = new DaoStatus();
+        DaoStatus daoStatus = (DaoStatus) DaoFactory.getDao(DaoTypes.Status);
 
         if(editStatus != null){
             int statusId = Integer.parseInt(editStatus);

@@ -22,8 +22,14 @@
         </c:forEach>
     </select>
     <input type="text" name="model" value="${selectedTransport.model}" placeholder="Модель">
+    ${sessionScope.errorMap.errorModel}
+
     <input type="text" name="capacity" value="${selectedTransport.capacity}" placeholder="Вместимость">
+    ${sessionScope.errorMap.errorCapacity}
+
     <input type="text" name="speed" value="${selectedTransport.speed}" placeholder="Скорость">
+    ${sessionScope.errorMap.errorSpeed}
+
     <button type="submit" name="updateTransport" value="${selectedTransport.id}">Обновить</button>
 </form>
 

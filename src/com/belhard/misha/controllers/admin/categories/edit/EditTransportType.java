@@ -2,6 +2,8 @@ package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowTransport;
 import com.belhard.misha.controllers.admin.categories.show.ShowTransportType;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoTransport;
 import com.belhard.misha.dao.impl.DaoTransportType;
 import com.belhard.misha.entity.Transport;
@@ -25,15 +27,10 @@ public class EditTransportType extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         String editTransportType = req.getParameter("editTransportType");
         String updateTransportType = req.getParameter("updateTransportType");
-        DaoTransportType daoTransportType = new DaoTransportType();
+        DaoTransportType daoTransportType = (DaoTransportType) DaoFactory.getDao(DaoTypes.TransportType);
 
         if(editTransportType != null){
             int transportTypeId = Integer.parseInt(req.getParameter("editTransportType"));

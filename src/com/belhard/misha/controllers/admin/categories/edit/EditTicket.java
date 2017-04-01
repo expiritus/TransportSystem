@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowTicket;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.*;
 import com.belhard.misha.entity.*;
 import com.belhard.misha.utils.AuthUtils;
@@ -22,18 +24,13 @@ public class EditTicket extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         String editTicket = req.getParameter("editTicket");
         String updateTicket = req.getParameter("updateTicket");
 
-        DaoTicket daoTicket = new DaoTicket();
-        DaoUser daoUser = new DaoUser();
-        DaoRoute daoRoute = new DaoRoute();
+        DaoTicket daoTicket = (DaoTicket) DaoFactory.getDao(DaoTypes.Ticket);
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
+        DaoRoute daoRoute = (DaoRoute) DaoFactory.getDao(DaoTypes.Route);
 
         if(editTicket != null){
             int ticketId = Integer.parseInt(req.getParameter("editTicket"));

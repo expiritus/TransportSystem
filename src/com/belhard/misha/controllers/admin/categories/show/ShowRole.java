@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
 
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoRole;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.utils.AuthUtils;
@@ -21,13 +23,8 @@ public class ShowRole extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
-
-        DaoRole daoRole = new DaoRole();
+        DaoRole daoRole = (DaoRole) DaoFactory.getDao(DaoTypes.Role);
         List<Role> roles = daoRole.findAll(Role.class);
 
         req.setAttribute("roles", roles);
@@ -37,16 +34,12 @@ public class ShowRole extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         String addRole = req.getParameter("addRole");
         String deleteRole = req.getParameter("deleteRole");
 
-        DaoRole daoRole = new DaoRole();
+        DaoRole daoRole = (DaoRole) DaoFactory.getDao(DaoTypes.Role);
 
         if(addRole != null){
             String roleParam = req.getParameter("role");

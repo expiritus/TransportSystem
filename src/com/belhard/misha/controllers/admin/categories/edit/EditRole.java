@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowRole;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoRole;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.utils.AuthUtils;
@@ -21,15 +23,10 @@ public class EditRole extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
         String editRole = req.getParameter("editRole");
         String updateRole = req.getParameter("updateRole");
-        DaoRole daoRole = new DaoRole();
+        DaoRole daoRole = (DaoRole) DaoFactory.getDao(DaoTypes.Role);
         if(editRole != null){
             int editRoleId = Integer.parseInt(editRole);
             Role role = daoRole.findById(Role.class, editRoleId);

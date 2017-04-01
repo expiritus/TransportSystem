@@ -2,6 +2,8 @@ package com.belhard.misha.utils;
 
 import com.belhard.misha.controllers.admin.IndexController;
 import com.belhard.misha.controllers.admin.auth.LoginController;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.Role;
 import com.belhard.misha.entity.User;
@@ -29,7 +31,7 @@ public final class AuthUtils {
         }
         HttpUtils.invalidateSessionByAttribute(req, "userNotFound");
         HttpUtils.invalidateSessionByAttribute(req, login);
-        DaoUser daoUser = new DaoUser();
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
         user = daoUser.fillRolesToUser(user);
         HttpUtils.setSessionAttribute(req, "authUser", user);
         checkAndProvideUserByRole(req, resp, user);
@@ -49,7 +51,7 @@ public final class AuthUtils {
 
     public static boolean closeAccess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (HttpUtils.getSessionAttribute(req, "authUser") == null) {
-            HttpUtils.redirect(resp, req.getContextPath() + "" + LoginController.URL);
+            HttpUtils.redirect(resp, req.getContextPath() + LoginController.URL);
             return true;
         }
         return false;

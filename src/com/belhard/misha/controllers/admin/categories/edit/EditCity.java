@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.edit;
 
 import com.belhard.misha.controllers.admin.categories.show.ShowCity;
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoCity;
 import com.belhard.misha.dao.impl.DaoCountry;
 import com.belhard.misha.entity.City;
@@ -24,22 +26,17 @@ public class EditCity extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         String editCity = req.getParameter("editCity");
         String updateCity = req.getParameter("updateCity");
-        DaoCity daoCity = new DaoCity();
+        DaoCity daoCity = (DaoCity) DaoFactory.getDao(DaoTypes.City);
         if(editCity != null){
             int editCityId = Integer.parseInt(editCity);
             String countryParam = req.getParameter("country");
 
             City city = daoCity.findById(City.class, editCityId);
 
-            DaoCountry daoCountry = new DaoCountry();
+            DaoCountry daoCountry = (DaoCountry) DaoFactory.getDao(DaoTypes.Country);
             List<Country> countries = daoCountry.findAll(Country.class);
 
             req.setAttribute("city", city);

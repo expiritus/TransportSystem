@@ -16,12 +16,12 @@
         <c:set var="flag" value="0"/>
         <c:forEach var="userRole" items="${user.roles}">
             <c:if test="${userRole.id == role.id}">
-                ${role.role} <input type="checkbox" checked value="${role.id}">
+                ${role.role} <input name="roles" type="checkbox" checked value="${role.id}">
                 <c:set var="flag" value="1"/>
             </c:if>
         </c:forEach>
         <c:if test="${flag == 0}">
-            ${role.role} <input type="checkbox" value="${role.id}">
+            ${role.role} <input name="roles" type="checkbox" value="${role.id}">
         </c:if>
     </c:forEach>
     <button type="submit" name="updateUser" value="${user.id}">Обновить</button>

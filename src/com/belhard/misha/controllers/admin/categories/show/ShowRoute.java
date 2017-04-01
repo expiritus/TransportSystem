@@ -1,5 +1,7 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoCity;
 import com.belhard.misha.dao.impl.DaoRoute;
 import com.belhard.misha.dao.impl.DaoStatus;
@@ -27,16 +29,11 @@ public class ShowRoute extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
-
-        DaoRoute daoRoute = new DaoRoute();
-        DaoTransport daoTransport = new DaoTransport();
-        DaoCity daoCity = new DaoCity();
-        DaoStatus daoStatus = new DaoStatus();
+        DaoRoute daoRoute = (DaoRoute) DaoFactory.getDao(DaoTypes.Route);
+        DaoTransport daoTransport = (DaoTransport) DaoFactory.getDao(DaoTypes.Transport);
+        DaoCity daoCity = (DaoCity) DaoFactory.getDao(DaoTypes.City);
+        DaoStatus daoStatus = (DaoStatus) DaoFactory.getDao(DaoTypes.Status);
 
         List<Route> routes = daoRoute.findAll(Route.class);
         List<Transport> transports = daoTransport.findAll(Transport.class);
@@ -52,16 +49,11 @@ public class ShowRoute extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
         String addRoute = req.getParameter("addRoute");
         String deleteRoute = req.getParameter("deleteRoute");
 
-        DaoRoute daoRoute = new DaoRoute();
+        DaoRoute daoRoute = (DaoRoute) DaoFactory.getDao(DaoTypes.Route);
         if(addRoute != null){
             int transport = Integer.parseInt(req.getParameter("transport"));
             int cityFrom = Integer.parseInt(req.getParameter("cityFrom"));

@@ -1,6 +1,8 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
 
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoTransportType;
 import com.belhard.misha.entity.TransportType;
 import com.belhard.misha.utils.AuthUtils;
@@ -21,13 +23,8 @@ public class ShowTransportType extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
-
-        DaoTransportType daoTransportType = new DaoTransportType();
+        DaoTransportType daoTransportType = (DaoTransportType) DaoFactory.getDao(DaoTypes.TransportType);
 
         List<TransportType> transportTypes = daoTransportType.findAll(TransportType.class);
 
@@ -37,16 +34,11 @@ public class ShowTransportType extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
         String addTransportType = req.getParameter("addTransportType");
         String deleteTransportType = req.getParameter("deleteTransportType");
 
-        DaoTransportType daoTransportType = new DaoTransportType();
+        DaoTransportType daoTransportType = (DaoTransportType) DaoFactory.getDao(DaoTypes.TransportType);
         if(addTransportType != null){
 
             String transportTypeParam = req.getParameter("transportType");

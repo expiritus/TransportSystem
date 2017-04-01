@@ -1,5 +1,7 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoRole;
 import com.belhard.misha.dao.impl.DaoUser;
 import com.belhard.misha.entity.Role;
@@ -23,11 +25,10 @@ public class ShowUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        DaoUser daoUser = new DaoUser();
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
 
-        DaoRole daoRole = new DaoRole();
+        DaoRole daoRole = (DaoRole) DaoFactory.getDao(DaoTypes.Role);
         List<User> users = daoUser.findAll(User.class);
         for (User user : users) {
             daoUser.fillRolesToUser(user);
@@ -41,15 +42,10 @@ public class ShowUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
-
-        if (AuthUtils.closeAccess(req, resp)) {
-            return;
-        }
 
         String deleteUser = req.getParameter("deleteUser");
 
-        DaoUser daoUser = new DaoUser();
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
         if (deleteUser != null) {
             int userId = Integer.parseInt(req.getParameter("deleteUser"));
             daoUser.delete(User.class, userId);

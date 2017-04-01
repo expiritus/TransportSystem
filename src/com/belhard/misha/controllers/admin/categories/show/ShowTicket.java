@@ -1,5 +1,7 @@
 package com.belhard.misha.controllers.admin.categories.show;
 
+import com.belhard.misha.dao.factory.DaoFactory;
+import com.belhard.misha.dao.factory.DaoTypes;
 import com.belhard.misha.dao.impl.DaoRoute;
 import com.belhard.misha.dao.impl.DaoTicket;
 import com.belhard.misha.dao.impl.DaoUser;
@@ -26,15 +28,10 @@ public class ShowTicket extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
-
-        DaoTicket daoTicket = new DaoTicket();
-        DaoUser daoUser = new DaoUser();
-        DaoRoute daoRoute = new DaoRoute();
+        DaoTicket daoTicket = (DaoTicket) DaoFactory.getDao(DaoTypes.Ticket);
+        DaoUser daoUser = (DaoUser) DaoFactory.getDao(DaoTypes.User);
+        DaoRoute daoRoute = (DaoRoute) DaoFactory.getDao(DaoTypes.Route);
 
         List<Ticket> tickets = daoTicket.findAll(Ticket.class);
         List<User> users = daoUser.findAll(User.class);
@@ -48,16 +45,12 @@ public class ShowTicket extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
 
-        if(AuthUtils.closeAccess(req, resp)){
-            return;
-        }
 
         String deleteTicket = req.getParameter("deleteTicket");
         String addTicket = req.getParameter("addTicket");
 
-        DaoTicket daoTicket = new DaoTicket();
+        DaoTicket daoTicket = (DaoTicket) DaoFactory.getDao(DaoTypes.Ticket);
         if(deleteTicket != null){
             int ticketId = Integer.parseInt(req.getParameter("deleteTicket"));
             daoTicket.delete(Ticket.class, ticketId);

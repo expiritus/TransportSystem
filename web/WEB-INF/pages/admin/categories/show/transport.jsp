@@ -12,9 +12,14 @@
             <option value="${transportType.id}">${transportType.type}</option>
         </c:forEach>
     </select>
-    <input type="text" name="model" placeholder="Model">
-    <input type="text" name="capacity" placeholder="Capacity">
-    <input type="text" name="speed" placeholder="Speed">
+    <input type="text" name="model" placeholder="Model" value="${sessionScope.stateFullMap.stateFillModel}">
+    ${sessionScope.errorMap.errorModel}
+
+    <input type="text" name="capacity" placeholder="Capacity" value="${sessionScope.stateFullMap.stateFullCapacity}">
+    ${sessionScope.errorMap.errorCapacity}
+
+    <input type="text" name="speed" placeholder="Speed" value="${sessionScope.stateFullMap.stateFullSpeed}">
+    ${sessionScope.errorMap.errorSpeed}
     <button type="submit" name="addTransport">Отправить</button>
 </form>
 

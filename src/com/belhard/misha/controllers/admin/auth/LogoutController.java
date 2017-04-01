@@ -17,7 +17,7 @@ public class LogoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpUtils.setEncoding(req, resp);
+
         HttpUtils.invalidate(req);
         HttpUtils.redirect(resp, req.getContextPath() + "" + LoginController.URL);
     }
